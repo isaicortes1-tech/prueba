@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Desperdicios y estándar: aprende a ver</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef1f3;--panel:#fff;--ink:#1b2733;--mute:#5b6b79;--line:#d3dae0;--amber:#f2b705;--ok:#2e9e5b;--bad:#d64545;--mid:#e08a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}}
+:root[data-theme="dark"]{--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;line-height:1.15;margin:0}
+main{max-width:980px;margin:0 auto;padding:24px 18px 56px}
+h1{font-size:clamp(28px,5vw,42px);font-weight:800}
+h2{font-size:24px;font-weight:800;margin-bottom:8px}
+.lead,.mute{color:var(--mute)}
+.lead{max-width:64ch;margin:10px 0 0}
+a{color:var(--ink)}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+nav a{padding:6px 12px;border:2px solid var(--ink);border-radius:4px;text-decoration:none;font:700 14px Archivo,sans-serif}
+nav a:hover{background:var(--amber);border-color:var(--amber);color:#1b2733}
+section.s{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;margin-top:22px}
+.case{border-left:6px solid var(--amber);padding:4px 0 4px 14px;margin:14px 0}
+input,select,button{font:inherit}
+input[type=number],select{padding:7px 9px;border:2px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font-weight:600}
+input[type=number]{width:100%}
+label{display:block;font-weight:600;font-size:15px}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:1px}
+button{font:700 15px Archivo,sans-serif;padding:8px 15px;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:4px;cursor:pointer}
+button:hover:not(:disabled){background:var(--amber);border-color:var(--amber);color:#1b2733}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:12px 0}
+.row>div{flex:1 1 130px}
+.chips{display:flex;flex-direction:column;gap:8px}
+.card{display:flex;gap:8px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:4px;padding:8px 10px;background:var(--bg);flex-wrap:wrap}
+.card>span{flex:1 1 260px}
+.card.ok{border-color:var(--ok);border-width:2px}.card.no{border-color:var(--bad);border-width:2px}
+.card small{width:100%;color:var(--bad)}
+.note{padding:10px 14px;border-left:6px solid var(--mid);background:var(--bg);margin-top:12px;font-size:15px}
+.tag{display:inline-block;background:var(--amber);color:#1b2733;font:700 12px Archivo,sans-serif;padding:2px 8px;border-radius:3px}
+.fb{font-weight:600;min-height:24px;margin-top:6px}
+.big{font:800 40px Archivo,sans-serif}
+.stats{display:flex;flex-wrap:wrap;gap:20px;font-weight:600;align-items:baseline}
+.bar{margin:10px 0}
+.bar .lab{display:flex;justify-content:space-between;font-weight:600;font-size:15px}
+.trk{position:relative;height:24px;background:var(--bg);border:1px solid var(--line);border-radius:3px;margin-top:3px}
+.fill{height:100%;background:var(--ink);transition:width .3s}
+.fill.over{background:var(--bad)}
+.tl{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--amber)}
+.q{border-top:1px solid var(--line);padding:12px 0}
+.opt{display:block;width:100%;text-align:left;margin:6px 0}
+.ex{color:var(--mute);margin-top:6px;font-size:16px}
+.sum li,.std li{margin:6px 0}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fill{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">Volver al índice</a>
+<h1 style="margin-top:12px">Desperdicios y estándar: aprende a ver</h1>
+<p class="lead">Antes de mejorar hay que aprender a ver. Gran parte de lo que ocurre en un proceso no agrega valor para el cliente, y se esconde en lo cotidiano. Aquí entrenas el ojo y luego pasas a ordenar, medir el ritmo y balancear.</p>
+<nav aria-label="Secciones"><a href="#des">1 Desperdicios</a><a href="#s5">2 5S</a><a href="#takt">3 Takt time</a><a href="#bal">4 Balanceo</a><a href="#std">5 Trabajo estándar</a><a href="#quiz">6 Quiz</a></nav>
+
+<section class="s">
+<h2>El caso: un puesto de ensamble desordenado</h2>
+<div class="case">En el ensamble de bombas, el operador camina para buscar herramientas, espera material y retrabaja piezas. Nadie lo ve como problema porque "así siempre ha sido". Tu primera tarea: ponerle nombre a lo que pasa.</div>
+</section>
+
+<section class="s" id="des">
+<h2>1. Cacería de desperdicios (7+1)</h2>
+<p>Los ocho desperdicios: defectos, sobreproducción, esperas, talento no utilizado, transporte, inventario, movimiento y sobreprocesamiento. Clasifica cada situación del puesto.</p>
+<div class="chips" id="w"></div>
+<p><button id="wbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="wres" aria-live="polite"></p>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> Varias situaciones caben en dos desperdicios y algunos cursos nombran o cuentan los desperdicios distinto (por ejemplo, 7 sin talento no utilizado). Defiende tu elección con un argumento.</div>
+</section>
+
+<section class="s" id="s5">
+<h2>2. 5S: ordena el puesto</h2>
+<p><b>Primero, la etapa de clasificar.</b> Decide qué hacer con cada objeto de la mesa de trabajo.</p>
+<div class="chips" id="f"></div>
+<p><button id="fbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="fres" aria-live="polite"></p>
+<p style="margin-top:16px"><b>Ahora, relaciona cada descripción con su etapa de las 5S.</b></p>
+<div class="chips" id="g"></div>
+<p><button id="gbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="gres" aria-live="polite"></p>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> Los nombres en español varían (por ejemplo, Seiketsu como "Estandarizar" o "Normalizar", Shitsuke como "Disciplina" o "Sostener"), y algunas empresas agregan una sexta S de seguridad. Usa los de tu curso.</div>
+</section>
+
+<section class="s" id="takt">
+<h2>3. Takt time: el ritmo que pide el cliente</h2>
+<p><b>Takt time = tiempo disponible ÷ demanda del cliente.</b> Es cada cuántos segundos debe salir una pieza para cumplir el pedido, ni más rápido ni más lento.</p>
+<div class="row">
+<div><label for="tt">Turno (min)</label><input id="tt" type="number" min="1" value="480"></div>
+<div><label for="tp">Paros planeados (min)</label><input id="tp" type="number" min="0" value="30"></div>
+<div><label for="td">Demanda por turno (piezas)</label><input id="td" type="number" min="1" value="450"></div>
+</div>
+<div class="stats"><span>Takt <span class="big" id="tk">--</span> <small>seg/pieza</small></span></div>
+<div class="note" id="tmsg" aria-live="polite"></div>
+</section>
+
+<section class="s" id="bal">
+<h2>4. Balanceo de línea</h2>
+<p>Cada estación tiene un tiempo de ciclo. La línea marcha al ritmo de la más lenta. Edita los tiempos (segundos) y compáralos con el takt (línea ámbar).</p>
+<div class="row" id="bin"></div>
+<div id="bars"></div>
+<div class="stats"><span>Eficiencia de balanceo <span class="big" id="ef">--</span></span></div>
+<div class="note" id="bmsg" aria-live="polite"></div>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> La eficiencia de balanceo aquí es la suma de tiempos ÷ (número de estaciones × tiempo de la más lenta). Algunos cursos la calculan contra el takt.</div>
+</section>
+
+<section class="s" id="std">
+<h2>5. Trabajo estándar</h2>
+<p>Es la mejor forma conocida de hacer una tarea hoy, escrita y acordada con quienes la hacen. No es una camisa de fuerza: es el punto de partida para mejorar. Sus elementos clave conectan con lo que acabas de calcular:</p>
+<ul class="std">
+<li><b>Takt time:</b> el ritmo al que debe trabajar cada puesto.</li>
+<li><b>Secuencia de trabajo:</b> el orden de las actividades, el mismo en todos los turnos.</li>
+<li><b>Inventario estándar en proceso:</b> la cantidad mínima de piezas para que el trabajo fluya.</li>
+</ul>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> Contrasta con tu curso cómo define y nombra los elementos del trabajo estándar.</div>
+</section>
+
+<section class="s" id="quiz"><h2>6. Quiz rápido</h2><div id="qz"></div><p class="fb" id="qres" aria-live="polite"></p></section>
+
+<section class="s">
+<h2>Para repasar</h2>
+<ul class="sum">
+<li><b>Desperdicio es lo que consume recursos sin agregar valor al cliente.</b> Aprende a nombrarlo para poder atacarlo.</li>
+<li><b>5S crea la base visual:</b> clasificar, ordenar, limpiar, estandarizar y sostener.</li>
+<li><b>El takt marca el ritmo y el balanceo lo cumple:</b> la estación más lenta limita a toda la línea.</li>
+</ul>
+<p class="mute">Material educativo propio, sin relación con ninguna certificadora. Contrasta lo marcado con "Verificar" con tus fuentes.</p>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+function cls(id,items,opts,extra){
+ const sel=[],box=$(id);
+ box.innerHTML=items.map((c,i)=>`<div class="card" id="${id}${i}"><span>${c[0]}</span><select data-i="${i}" aria-label="Clasificar: ${c[0]}"><option value="">Elegir…</option>${opts.map((k,j)=>`<option value="${j}">${k}</option>`).join('')}</select><small id="${id}m${i}"></small></div>`).join('');
+ box.addEventListener('change',e=>{const i=e.target.dataset.i;if(i===undefined)return;sel[i]=e.target.value;$(id+i).className='card';$(id+'m'+i).textContent=''});
+ $(id+'btn').onclick=()=>{let ok=0;items.forEach((c,i)=>{const el=$(id+i),m=$(id+'m'+i);
+  if(sel[i]===undefined||sel[i]===''){el.className='card';m.textContent='Falta clasificar.';return}
+  if(+sel[i]===c[1]){ok++;el.className='card ok';m.textContent=''}else{el.className='card no';m.textContent='Sugerido: '+opts[c[1]]+'. '+extra}});
+  $(id+'res').textContent=`Aciertos: ${ok} de ${items.length}.`};
+}
+const WN=["Defectos","Sobreproducción","Esperas","Talento no utilizado","Transporte","Inventario","Movimiento","Sobreprocesamiento"];
+cls('w',[["Se arman 200 bombas cuando el pedido es de 150",1],["El operador espera 10 minutos a que llegue material del almacén",2],["Las bombas con fuga se desarman y se vuelven a armar",0],["Pallets de carcasas apilados en el pasillo para dos meses de producción",5],["El operador camina 20 metros a otra estación por una llave",6],["Se pule una carcasa por dentro y el cliente nunca la verá",7],["Las piezas pasan por tres áreas antes de llegar al ensamble",4],["Un operador con experiencia en mantenimiento solo atornilla y nadie escucha sus ideas",3],["Se llenan tres formatos distintos con los mismos datos",7],["La línea espera 15 minutos a que se desocupe la única máquina de prueba",2]],WN,'Varias situaciones caben en dos categorías: si tu argumento es sólido, también vale.');
+cls('f',[["Llave de uso diario",0],["Caja de tornillos de un modelo descontinuado",2],["Hojas con revisiones viejas de la instrucción de trabajo",2],["Calibrador que se usa una vez al mes",1],["Botella de agua personal del operador",1],["Piezas defectuosas sin identificar",1],["Cinta aislante de uso diario",0],["Equipo de un proyecto anterior",2]],["Se queda en el puesto","Se guarda en otro lugar cercano","Se retira"],'Piensa en qué tan seguido se usa y si es necesario.');
+cls('g',[["Eliminar del puesto lo que no se necesita",0],["Un lugar para cada cosa y cada cosa en su lugar",1],["Limpiar e inspeccionar para detectar fugas y fallas",2],["Crear reglas y señales visuales para mantener lo logrado",3],["Convertirlo en hábito con auditorías y disciplina",4]],["Clasificar (Seiri)","Ordenar (Seiton)","Limpiar (Seiso)","Estandarizar (Seiketsu)","Sostener (Shitsuke)"],'Revisa el nombre de la etapa.');
+/* TAKT */
+let T=null;
+function tcalc(){const a=+$('tt').value,p=+$('tp').value,d=+$('td').value;
+ if(!(a>0&&p>=0&&p<a&&d>0)){T=null;$('tk').textContent='--';$('tmsg').textContent='Revisa los datos: el turno debe ser mayor que los paros y la demanda mayor que 0.';bal();return}
+ T=(a-p)*60/d;$('tk').textContent=T.toFixed(1);
+ $('tmsg').textContent=`Tiempo disponible: ${a-p} min = ${(a-p)*60} s. ${(a-p)*60} ÷ ${d} = ${T.toFixed(1)} s. Si cada pieza tarda más que eso, no cumples el pedido; si tarda mucho menos, produces de más.`;bal()}
+['tt','tp','td'].forEach(i=>$(i).addEventListener('input',tcalc));
+/* BALANCEO */
+const B0=[52,48,63,40,55];
+$('bin').innerHTML=B0.map((v,i)=>`<div><label for="b${i}">Estación ${i+1} (s)</label><input id="b${i}" type="number" min="1" value="${v}"></div>`).join('');
+function bal(){const t=B0.map((_,i)=>Math.max(0,+$('b'+i).value||0)),mx=Math.max(...t),sum=t.reduce((a,b)=>a+b,0);
+ if(!(mx>0)){$('bars').innerHTML='';$('ef').textContent='--';return}
+ const sc=Math.max(mx,T||0)*1.1;
+ $('bars').innerHTML=t.map((v,i)=>`<div class="bar"><div class="lab"><span>Estación ${i+1}${v===mx?' (la más lenta)':''}</span><span>${v} s</span></div><div class="trk"><div class="fill ${T&&v>T?'over':''}" style="width:${v/sc*100}%"></div>${T?`<div class="tl" style="left:${T/sc*100}%" title="Takt"></div>`:''}</div></div>`).join('');
+ const ef=sum/(t.length*mx)*100;$('ef').textContent=ef.toFixed(1)+'%';
+ const over=t.map((v,i)=>T&&v>T?i+1:0).filter(Boolean);
+ $('bmsg').textContent=`La línea marcha al ritmo de la estación ${t.indexOf(mx)+1} (${mx} s). `+(T?(over.length?`Las estaciones ${over.join(', ')} superan el takt de ${T.toFixed(1)} s (barras rojas) y no cumplen el pedido. `:'Todas las estaciones están dentro del takt. ')+`Con ${sum} s de trabajo total, el mínimo teórico es ${Math.ceil(sum/T)} estaciones.`:'Calcula primero el takt para compararlo.')}
+B0.forEach((_,i)=>$('b'+i).addEventListener('input',bal));
+tcalc();
+/* QUIZ */
+const Q=[["¿Qué es un desperdicio en Lean?",["Cualquier actividad que consume recursos y no agrega valor para el cliente","Solo el material que se tira a la basura","Un error del operador"],0,"Incluye esperas, movimientos y sobreprocesamiento, aunque parezcan trabajo normal."],
+["¿Qué hace la primera S, Seiri (Clasificar)?",["Pinta el piso","Separa lo necesario de lo innecesario y retira lo segundo","Crea auditorías mensuales"],1,"Es el primer paso: sin quitar lo que sobra, ordenar solo acomoda desorden."],
+["El takt time es…",["El tiempo que tarda la máquina más lenta","El ritmo al que el cliente pide el producto: tiempo disponible ÷ demanda","El tiempo de un cambio de modelo"],1,"Marca el ritmo de referencia para toda la línea."],
+["Si una estación tarda más que el takt…",["No cumple el ritmo del cliente y limita a toda la línea","Produce de más","No afecta mientras las otras sean rápidas"],0,"La línea marcha al ritmo de la estación más lenta, el cuello de botella."],
+["El trabajo estándar es…",["Una regla que nunca se cambia","La mejor forma conocida de hacer la tarea hoy, documentada y base para mejorar","Un procedimiento que escribe el supervisor sin consultar"],1,"Se acuerda con quien hace el trabajo y se mejora con evidencia."]];
+let sc=0,ans=0;
+$('qz').innerHTML=Q.map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<button class="opt" type="button" data-q="${i}" data-j="${j}">${o}</button>`).join('')}<div class="ex" id="x${i}"></div></div>`).join('');
+$('qz').addEventListener('click',e=>{const i=e.target.dataset.q;if(i===undefined)return;const j=+e.target.dataset.j,q=Q[i];
+ document.querySelectorAll(`[data-q="${i}"]`).forEach(b=>b.disabled=true);
+ const ok=j===q[2];if(ok)sc++;ans++;e.target.style.borderColor=ok?'var(--ok)':'var(--bad)';
+ $('x'+i).textContent=(ok?'Correcto. ':'No exactamente. ')+q[3];
+ if(ans===Q.length)$('qres').textContent=`Resultado: ${sc} de ${Q.length}.`});
+</script>
+</body>
+</html>
