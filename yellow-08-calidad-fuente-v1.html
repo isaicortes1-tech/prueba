@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calidad en la fuente: que el defecto no avance</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef1f3;--panel:#fff;--ink:#1b2733;--mute:#5b6b79;--line:#d3dae0;--amber:#f2b705;--ok:#2e9e5b;--bad:#d64545;--mid:#e08a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}}
+:root[data-theme="dark"]{--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;line-height:1.15;margin:0}
+main{max-width:980px;margin:0 auto;padding:24px 18px 56px}
+h1{font-size:clamp(28px,5vw,42px);font-weight:800}
+h2{font-size:24px;font-weight:800;margin-bottom:8px}
+.lead,.mute{color:var(--mute)}
+.lead{max-width:64ch;margin:10px 0 0}
+a{color:var(--ink)}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+nav a{padding:6px 12px;border:2px solid var(--ink);border-radius:4px;text-decoration:none;font:700 14px Archivo,sans-serif}
+nav a:hover{background:var(--amber);border-color:var(--amber);color:#1b2733}
+section.s{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;margin-top:22px}
+.case{border-left:6px solid var(--amber);padding:4px 0 4px 14px;margin:14px 0}
+input,select,button{font:inherit}
+select{padding:7px 9px;border:2px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font-weight:600}
+label{display:block;font-weight:600;font-size:15px}
+select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:1px}
+button{font:700 15px Archivo,sans-serif;padding:8px 15px;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:4px;cursor:pointer}
+button:hover:not(:disabled){background:var(--amber);border-color:var(--amber);color:#1b2733}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:12px 0}
+.chips{display:flex;flex-direction:column;gap:8px}
+.card{display:flex;gap:8px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:4px;padding:8px 10px;background:var(--bg);flex-wrap:wrap}
+.card>span{flex:1 1 260px}
+.card.ok{border-color:var(--ok);border-width:2px}.card.no{border-color:var(--bad);border-width:2px}
+.card small{width:100%;color:var(--bad)}
+.note{padding:10px 14px;border-left:6px solid var(--mid);background:var(--bg);margin-top:12px;font-size:15px}
+.tag{display:inline-block;background:var(--amber);color:#1b2733;font:700 12px Archivo,sans-serif;padding:2px 8px;border-radius:3px}
+.fb{font-weight:600;min-height:24px;margin-top:6px}
+.big{font:800 34px Archivo,sans-serif}
+.stats{display:flex;flex-wrap:wrap;gap:20px;font-weight:600;align-items:baseline}
+.lamp{width:22px;height:22px;border-radius:50%;background:var(--ok);display:inline-block;vertical-align:middle;box-shadow:0 0 0 5px color-mix(in srgb,var(--ok) 25%,transparent)}
+.lamp.off{background:var(--bad);box-shadow:0 0 0 5px color-mix(in srgb,var(--bad) 25%,transparent)}
+.q{border-top:1px solid var(--line);padding:12px 0}
+.opt{display:block;width:100%;text-align:left;margin:6px 0}
+.ex{color:var(--mute);margin-top:6px;font-size:16px}
+.sum li,.kz li{margin:6px 0}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">Volver al índice</a>
+<h1 style="margin-top:12px">Calidad en la fuente: que el defecto no avance</h1>
+<p class="lead">Es más barato evitar un defecto donde nace que encontrarlo al final. Aquí revisas las herramientas que lo logran: Poka Yoke, Jidoka con Andon, SMED, TPM y kaizen.</p>
+<nav aria-label="Secciones"><a href="#py">1 Poka Yoke</a><a href="#ji">2 Jidoka y Andon</a><a href="#sm">3 SMED</a><a href="#tp">4 TPM</a><a href="#kz">5 Kaizen</a><a href="#quiz">6 Quiz</a></nav>
+
+<section class="s">
+<h2>El caso: la planta de bombas</h2>
+<div class="case">Las fugas en el sello se descubren hasta la prueba final. Para entonces, ya se armaron decenas de bombas defectuosas. La meta es que el defecto no se produzca, o que al aparecer detenga el proceso de inmediato.</div>
+</section>
+
+<section class="s" id="py">
+<h2>1. Poka Yoke: a prueba de errores</h2>
+<p>Un Poka Yoke es un dispositivo o diseño que evita el error o lo detecta al instante. Si <b>previene</b>, el error no puede ocurrir; si <b>detecta</b>, avisa o frena al ocurrir. Clasifica cada ejemplo.</p>
+<div class="chips" id="p"></div>
+<p><button id="pbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="pres" aria-live="polite"></p>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> Algunos cursos clasifican los Poka Yoke por función de control o de aviso; contrasta con la clasificación de tu curso.</div>
+</section>
+
+<section class="s" id="ji">
+<h2>2. Jidoka y Andon</h2>
+<p>Jidoka es dar a la línea la capacidad de detenerse cuando detecta un defecto. El Andon es la señal visible (luz o tablero) que avisa dónde y qué pasó. Compara los dos modos: introduce una causa de defecto y avanza piezas.</p>
+<div class="row"><div><label for="mode">Modo</label><select id="mode"><option value="n">Sin Jidoka (inspección cada 10 piezas)</option><option value="j">Con Jidoka (se detiene al detectar)</option></select></div></div>
+<p><span class="lamp" id="lamp"></span> <b id="lst">Línea operando</b></p>
+<div class="stats" aria-live="polite"><span>Producidas <span class="big" id="jn">0</span></span><span>Defectuosas <span class="big" id="jb">0</span></span></div>
+<div class="row"><button id="b1" type="button">Producir 1 pieza</button><button id="b5" type="button">Producir 5 piezas</button><button id="bc" type="button">Introducir causa de defecto</button><button id="bf" type="button">Corregir causa y reanudar</button><button id="br" type="button">Reiniciar</button></div>
+<div class="note" id="jmsg" aria-live="polite">Introduce la causa de defecto y produce piezas en cada modo; compara cuántas salen defectuosas.</div>
+</section>
+
+<section class="s" id="sm">
+<h2>3. SMED: cambios rápidos</h2>
+<p>SMED reduce el tiempo de cambio de modelo separando lo que se puede hacer con la máquina operando (externo) de lo que exige pararla (interno). Clasifica cada actividad de un cambio de molde (minutos entre paréntesis).</p>
+<div class="chips" id="m"></div>
+<p><button id="mbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="mres" aria-live="polite"></p>
+<div class="note" id="mmsg" aria-live="polite">Clasifica las 6 actividades para ver cuánto baja el paro.</div>
+</section>
+
+<section class="s" id="tp">
+<h2>4. TPM y las pérdidas del equipo</h2>
+<p>El TPM (mantenimiento productivo total) involucra a operación y mantenimiento para que el equipo no falle. Se apoya en las seis grandes pérdidas, que explican cada factor del OEE (puedes medirlo con la calculadora OEE del sitio). Relaciona cada pérdida con el factor que afecta.</p>
+<div class="chips" id="t"></div>
+<p><button id="tbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="tres" aria-live="polite"></p>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> Algunas fuentes ubican las pérdidas de arranque en calidad y otras en rendimiento. Usa la clasificación de tu curso.</div>
+</section>
+
+<section class="s" id="kz">
+<h2>5. Kaizen: mejora continua</h2>
+<p>Kaizen significa mejorar con pequeños pasos constantes, con la participación de todos. Un evento kaizen concentra a un equipo en mejorar un área en pocos días.</p>
+<ul class="kz">
+<li><b>Elegir</b> un problema concreto, con datos.</li>
+<li><b>Observar</b> en el Gemba antes de proponer ideas.</li>
+<li><b>Probar</b> la idea a pequeña escala.</li>
+<li><b>Estandarizar</b> lo que funciona y compartirlo.</li>
+</ul>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> La duración típica de un evento kaizen y sus pasos varían entre empresas y cursos.</div>
+</section>
+
+<section class="s" id="quiz"><h2>6. Quiz rápido</h2><div id="qz"></div><p class="fb" id="qres" aria-live="polite"></p></section>
+
+<section class="s">
+<h2>Para repasar</h2>
+<ul class="sum">
+<li><b>Prevenir antes que detectar:</b> el Poka Yoke ideal hace imposible el error; si no se puede, lo detecta al instante.</li>
+<li><b>Detener para no propagar:</b> Jidoka y Andon evitan que un defecto avance y hacen visible el problema.</li>
+<li><b>Que el equipo no falle ni se pare de más:</b> SMED y TPM atacan las pérdidas de disponibilidad, rendimiento y calidad.</li>
+</ul>
+<p class="mute">Material educativo propio, sin relación con ninguna certificadora. Contrasta lo marcado con "Verificar" con tus fuentes.</p>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+function cls(id,items,opts,extra,cb){
+ const sel=[],box=$(id);
+ box.innerHTML=items.map((c,i)=>`<div class="card" id="${id}${i}"><span>${c[0]}</span><select data-i="${i}" aria-label="Clasificar: ${c[0]}"><option value="">Elegir…</option>${opts.map((k,j)=>`<option value="${j}">${k}</option>`).join('')}</select><small id="${id}m${i}"></small></div>`).join('');
+ box.addEventListener('change',e=>{const i=e.target.dataset.i;if(i===undefined)return;sel[i]=e.target.value;$(id+i).className='card';$(id+'m'+i).textContent='';if(cb)cb(sel)});
+ $(id+'btn').onclick=()=>{let ok=0;items.forEach((c,i)=>{const el=$(id+i),m=$(id+'m'+i);
+  if(sel[i]===undefined||sel[i]===''){el.className='card';m.textContent='Falta clasificar.';return}
+  if(+sel[i]===c[1]){ok++;el.className='card ok';m.textContent=''}else{el.className='card no';m.textContent='Sugerido: '+opts[c[1]]+'. '+extra}});
+  $(id+'res').textContent=`Aciertos: ${ok} de ${items.length}.`};
+}
+cls('p',[["Un conector con forma que solo entra de una manera",0],["Un sensor que avisa si falta un tornillo",1],["Un dispositivo que no permite montar la pieza al revés",0],["Una báscula que rechaza el paquete si su peso no coincide",1]],["Previene el error","Detecta el error"],'Si el error no puede ocurrir, previene; si ocurre y se avisa, detecta.');
+/* JIDOKA */
+let J;const jinit=()=>J={n:0,b:0,c:false,s:false};jinit();
+function jd(m){$('jn').textContent=J.n;$('jb').textContent=J.b;$('lamp').className='lamp'+(J.s?' off':'');$('lst').textContent=J.s?'Línea detenida (Andon encendido)':'Línea operando';if(m)$('jmsg').textContent=m}
+function jp(){if(J.s)return;const j=$('mode').value==='j';J.n++;if(J.c)J.b++;
+ if(j&&J.c){J.s=true;jd(`Jidoka: el defecto se detectó en la primera pieza mala y la línea se detuvo. Solo ${J.b} pieza defectuosa. Corrige la causa y reanuda.`);return}
+ if(!j&&J.c&&J.n%10===0){J.s=true;jd(`La inspección de la pieza ${J.n} descubrió el problema, pero ya hay ${J.b} piezas defectuosas. Corrige la causa y reanuda.`);return}
+ jd(J.c&&!j?`La causa está activa y nadie lo sabe todavía: ${J.b} defectuosas hasta ahora.`:'La línea produce bien.')}
+$('b1').onclick=jp;$('b5').onclick=()=>{for(let i=0;i<5;i++)jp()};
+$('bc').onclick=()=>{J.c=true;jd('Causa de defecto introducida. Produce piezas y observa.')};
+$('bf').onclick=()=>{J.c=false;J.s=false;jd('Causa corregida. La línea reanuda.')};
+$('br').onclick=()=>{jinit();jd('Reiniciado.')};$('mode').onchange=$('br').onclick;
+/* SMED */
+const MT=[8,6,10,7,9,5];
+cls('m',[["Buscar la herramienta y el molde nuevo (8 min)",1],["Retirar el molde anterior (6 min)",0],["Precalentar el molde nuevo (10 min)",1],["Montar el molde nuevo (7 min)",0],["Ajustar y probar la primera pieza (9 min)",0],["Limpiar y guardar el molde anterior (5 min)",1]],["Interna (máquina parada)","Externa (máquina operando)"],'Pregunta: ¿se puede hacer con la máquina funcionando?',sel=>{
+ if(MT.some((_,i)=>sel[i]===undefined||sel[i]===''))return;
+ const T=45,I=MT.reduce((s,v,i)=>s+(sel[i]==='0'?v:0),0);
+ $('mmsg').textContent=`Con tu clasificación, la máquina está parada ${I} min de los ${T} originales: ${((1-I/T)*100).toFixed(0)}% menos. Con "Revisar mis respuestas" confirma que no pasaste a externa algo que exige parar la máquina.`});
+cls('t',[["Averías de equipo",0],["Cambios de modelo y ajustes",0],["Microparos",1],["Velocidad reducida",1],["Defectos y retrabajo",2],["Pérdidas de arranque",2]],["Disponibilidad","Rendimiento","Calidad"],'Piensa si la pérdida roba tiempo, velocidad o buenas piezas.');
+const Q=[["Un sensor que avisa si falta un tornillo es un Poka Yoke que…",["Previene el error","Detecta el error"],1,"Avisa cuando el error ocurre. Prevenir sería diseñar para que no se pueda olvidar."],
+["¿Qué logra Jidoka?",["Producir más rápido","Detener la línea al detectar un defecto para que no se propague","Eliminar la inspección final"],1,"Evita seguir produciendo defectos y hace visible el problema."],
+["¿Qué es el Andon?",["La señal visible que avisa dónde y qué pasó","Un tipo de inventario","Un manual de procedimientos"],0,"Suele ser una luz o un tablero."],
+["En SMED, ¿qué es una actividad externa?",["La que se hace con la máquina parada","La que se puede hacer con la máquina operando","La que hace un proveedor"],1,"Pasar actividades a externas reduce el tiempo de paro."],
+["Las averías de equipo afectan principalmente al factor…",["Disponibilidad","Calidad","Rendimiento"],0,"Son paros no planeados que roban tiempo disponible."]];
+let sc=0,ans=0;
+$('qz').innerHTML=Q.map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<button class="opt" type="button" data-q="${i}" data-j="${j}">${o}</button>`).join('')}<div class="ex" id="x${i}"></div></div>`).join('');
+$('qz').addEventListener('click',e=>{const i=e.target.dataset.q;if(i===undefined)return;const j=+e.target.dataset.j,q=Q[i];
+ document.querySelectorAll(`[data-q="${i}"]`).forEach(b=>b.disabled=true);
+ const ok=j===q[2];if(ok)sc++;ans++;e.target.style.borderColor=ok?'var(--ok)':'var(--bad)';
+ $('x'+i).textContent=(ok?'Correcto. ':'No exactamente. ')+q[3];
+ if(ans===Q.length)$('qres').textContent=`Resultado: ${sc} de ${Q.length}.`});
+</script>
+</body>
+</html>

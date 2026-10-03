@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Analizar: encuentra la causa, no el culpable</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef1f3;--panel:#fff;--ink:#1b2733;--mute:#5b6b79;--line:#d3dae0;--amber:#f2b705;--ok:#2e9e5b;--bad:#d64545;--mid:#e08a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}}
+:root[data-theme="dark"]{--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;line-height:1.15;margin:0}
+main{max-width:980px;margin:0 auto;padding:24px 18px 56px}
+h1{font-size:clamp(28px,5vw,42px);font-weight:800}
+h2{font-size:24px;font-weight:800;margin-bottom:8px}
+.lead,.mute{color:var(--mute)}
+.lead{max-width:64ch;margin:10px 0 0}
+a{color:var(--ink)}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+nav a{padding:6px 12px;border:2px solid var(--ink);border-radius:4px;text-decoration:none;font:700 14px Archivo,sans-serif}
+nav a:hover{background:var(--amber);border-color:var(--amber);color:#1b2733}
+section.s{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;margin-top:22px}
+.case{border-left:6px solid var(--amber);padding:4px 0 4px 14px;margin:14px 0}
+input,select,button{font:inherit}
+input[type=number],input[type=text],select{padding:7px 9px;border:2px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font-weight:600}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:1px}
+button{font:700 15px Archivo,sans-serif;padding:8px 15px;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:4px;cursor:pointer}
+button:hover:not(:disabled){background:var(--amber);border-color:var(--amber);color:#1b2733}
+table{border-collapse:collapse;width:100%}
+th,td{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line)}
+th{font:700 14px Archivo,sans-serif}
+.scroll{overflow-x:auto}
+.two{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+svg text{fill:var(--ink);font-family:Archivo,sans-serif}
+.note{padding:10px 14px;border-left:6px solid var(--mid);background:var(--bg);margin-top:12px;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.card{display:flex;gap:8px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:4px;padding:8px 10px;background:var(--bg);width:100%;flex-wrap:wrap}
+.card.ok{border-color:var(--ok);border-width:2px}.card.no{border-color:var(--bad);border-width:2px}
+.card small{width:100%;color:var(--bad)}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:14px}
+.col{border:1px solid var(--line);border-radius:4px;padding:8px;font-size:14px;min-height:60px}
+.col b{display:block;font:700 14px Archivo,sans-serif;border-bottom:3px solid var(--amber);margin-bottom:5px}
+.col p{margin:4px 0}
+.why{margin:6px 0;padding:8px 12px;border-left:4px solid var(--ok);background:var(--bg)}
+.opt{display:block;width:100%;text-align:left;margin:6px 0}
+.fb{min-height:24px;font-weight:600;margin-top:6px}
+.npr{font:800 18px Archivo,sans-serif;text-align:center;border-radius:4px;color:#1b2733}
+.hi{background:#e8807f}.md{background:#f4b45c}.lo{background:#7fcf9f}
+.q{border-top:1px solid var(--line);padding:12px 0}
+.q .ex{color:var(--mute);margin-top:6px;font-size:16px}
+.sum li{margin:6px 0}
+.tag{display:inline-block;background:var(--amber);color:#1b2733;font:700 12px Archivo,sans-serif;padding:2px 8px;border-radius:3px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">Volver al índice</a>
+<h1 style="margin-top:12px">Analizar: encuentra la causa, no el culpable</h1>
+<p class="lead">Cuando algo falla, la tentación es actuar sobre lo primero que se ve. Este módulo te enseña a elegir el problema correcto, ordenar las posibles causas, llegar a la raíz y decidir qué riesgo atender primero.</p>
+<nav aria-label="Secciones"><a href="#pareto">1 Pareto</a><a href="#ishikawa">2 Ishikawa</a><a href="#porques">3 Cinco porqués</a><a href="#amef">4 AMEF</a><a href="#quiz">5 Quiz</a><a href="#resumen">6 Resumen</a></nav>
+
+<section class="s">
+<h2>El caso: bombas de agua rechazadas</h2>
+<div class="case">Una línea de ensamble de bombas pequeñas tuvo <b>260 piezas rechazadas</b> en el mes. La gerencia pide "bajar el rechazo". Ese es el punto de partida de todo el módulo: ¿por dónde empezamos y qué hacemos con los datos?</div>
+<p class="mute">Ruta sugerida: Pareto para elegir el defecto, Ishikawa para listar causas, cinco porqués para profundizar y AMEF para priorizar riesgos.</p>
+</section>
+
+<section class="s" id="pareto">
+<h2>1. Pareto: elige dónde atacar</h2>
+<p>Ordena las categorías de mayor a menor y suma el porcentaje acumulado. Normalmente unos pocos defectos explican la mayor parte del problema. Cambia los números o los nombres y mira cómo se mueve el gráfico.</p>
+<div class="two">
+<div class="scroll"><table><thead><tr><th>Defecto</th><th>Piezas</th></tr></thead><tbody id="ptab"></tbody></table><p><button id="prst" type="button">Restaurar datos del caso</button></p></div>
+<div><svg id="psvg" viewBox="0 0 620 300" role="img" aria-label="Gráfico de Pareto" style="width:100%;height:auto"></svg></div>
+</div>
+<div class="note" id="pins" aria-live="polite"></div>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> La regla 80/20 es una referencia, no una ley: en tus datos puede ser 70/30 o 90/10.</div>
+</section>
+
+<section class="s" id="ishikawa">
+<h2>2. Ishikawa: ordena las posibles causas</h2>
+<p>Elegimos el defecto más grande: <b>fuga en el sello</b>. Primero se hace una lluvia de ideas sin juzgar; luego las causas se agrupan en categorías (6M). Abajo hay 12 ideas del equipo: clasifica cada una.</p>
+<div class="chips" id="ccards"></div>
+<p><button id="chk" type="button">Revisar mis respuestas</button></p>
+<div class="board" id="board" aria-live="polite"></div>
+<div class="note"><span class="tag">Verificar</span> Algunas causas caben en dos categorías y algunos cursos usan 4M, 5M u 8M. Lo importante es que la clasificación ayude a no olvidar áreas.</div>
+</section>
+
+<section class="s" id="porques">
+<h2>3. Cinco porqués: baja hasta la raíz</h2>
+<p>Tomamos una causa del diagrama y preguntamos "¿por qué?" hasta llegar a algo que puedas corregir. Elige en cada paso la respuesta que se apoya en lo que se ve en el caso.</p>
+<div id="chain"></div><div id="wq"></div><div class="fb" id="wfb" aria-live="polite"></div>
+<p><button id="wrst" type="button">Reiniciar</button></p>
+<p class="mute">El "cinco" es una guía: en este caso bastaron cuatro. Paras cuando la causa es corregible y está respaldada por hechos, no por opiniones.</p>
+</section>
+
+<section class="s" id="amef">
+<h2>4. AMEF: ¿qué falla es más riesgosa?</h2>
+<p>El AMEF lista modos de falla y los califica de 1 a 10 en <b>severidad</b> (qué tan grave), <b>ocurrencia</b> (qué tan seguido) y <b>detección</b> (qué tan difícil es atraparla; 10 = casi imposible). El NPR es el producto de los tres. Ajusta las calificaciones y observa cómo cambia la prioridad.</p>
+<div class="scroll"><table><thead><tr><th>Modo de falla</th><th>Severidad</th><th>Ocurrencia</th><th>Detección</th><th>NPR</th></tr></thead><tbody id="atab"></tbody></table></div>
+<div class="note" id="ains" aria-live="polite"></div>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> Las escalas y el límite de NPR para actuar cambian por empresa (aquí uso 200 y 100 solo como ejemplo). Algunos estándares recientes, como el manual AIAG-VDA, usan "prioridad de acción" en vez de NPR; confirma qué enseña tu curso.</div>
+</section>
+
+<section class="s" id="quiz"><h2>5. Quiz rápido</h2><div id="qz"></div><p class="fb" id="qres" aria-live="polite"></p></section>
+
+<section class="s" id="resumen">
+<h2>6. Para repasar</h2>
+<ul class="sum">
+<li><b>Primero elige, luego investiga:</b> el Pareto te dice qué problema vale tu tiempo.</li>
+<li><b>Causas ordenadas, luego profundas:</b> Ishikawa evita olvidar áreas y los cinco porqués llegan a la raíz con hechos.</li>
+<li><b>Prioriza riesgos con criterio:</b> el AMEF combina gravedad, frecuencia y detección, no solo "lo que más molesta".</li>
+</ul>
+<p class="mute">Material educativo propio, sin relación con ninguna certificadora. Contrasta los criterios marcados con "Verificar" con tus fuentes.</p>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+/* PARETO */
+const P0=[["Fuga en sello",118],["Rosca dañada",64],["Rayones en carcasa",31],["Etiqueta mal pegada",22],["Falta de tornillo",15],["Otros",10]];
+function pbuild(){$('ptab').innerHTML=P0.map((r,i)=>`<tr><td><input type="text" value="${r[0]}" data-i="${i}" aria-label="Defecto ${i+1}" style="width:100%"></td><td><input type="number" min="0" value="${r[1]}" data-n="${i}" aria-label="Piezas ${i+1}" style="width:80px"></td></tr>`).join('');pdraw()}
+function pdraw(){
+  const rows=[...document.querySelectorAll('#ptab tr')].map(tr=>{const t=tr.querySelectorAll('input');return[t[0].value||'—',Math.max(0,+t[1].value||0)]}).filter(r=>r[1]>0).sort((a,b)=>b[1]-a[1]);
+  const tot=rows.reduce((s,r)=>s+r[1],0),svg=$('psvg');
+  if(!tot){svg.innerHTML='';$('pins').textContent='Escribe al menos una cantidad mayor que 0.';return}
+  const W=620,H=300,l=44,r=44,t=16,b=84,pw=W-l-r,ph=H-t-b,n=rows.length,bw=pw/n,mx=rows[0][1];
+  let c=0,vital=0,s='';
+  const cum=rows.map(x=>{c+=x[1];return c/tot*100});
+  for(let i=0;i<n;i++){ if(vital===0&&cum[i]>=80)vital=i+1 }
+  vital=vital||n;
+  [0,25,50,75,100].forEach(p=>{const y=t+ph*(1-p/100);s+=`<line x1="${l}" x2="${W-r}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${W-r+6}" y="${y+4}" font-size="11">${p}%</text>`});
+  const y80=t+ph*0.2;s+=`<line x1="${l}" x2="${W-r}" y1="${y80}" y2="${y80}" stroke="var(--bad)" stroke-dasharray="5 4"/>`;
+  rows.forEach((x,i)=>{const h=ph*x[1]/mx,xx=l+i*bw+bw*.12;
+    s+=`<rect x="${xx}" y="${t+ph-h}" width="${bw*.76}" height="${h}" fill="${i<vital?'var(--amber)':'var(--mute)'}"/><text x="${xx+bw*.38}" y="${t+ph-h-4}" font-size="12" text-anchor="middle">${x[1]}</text>`;
+    const lb=x[0].length>14?x[0].slice(0,13)+'…':x[0];s+=`<text transform="translate(${xx+bw*.4},${t+ph+12}) rotate(40)" font-size="12">${lb.replace(/</g,'')}</text>`});
+  s+=`<polyline fill="none" stroke="var(--ink)" stroke-width="2.5" points="${cum.map((v,i)=>`${l+i*bw+bw*.5},${t+ph*(1-v/100)}`).join(' ')}"/>`;
+  cum.forEach((v,i)=>{s+=`<circle cx="${l+i*bw+bw*.5}" cy="${t+ph*(1-v/100)}" r="4" fill="var(--ink)"/>`});
+  svg.innerHTML=s;
+  $('pins').textContent=`Total: ${tot} piezas. Los ${vital} primeros defectos suman ${cum[vital-1].toFixed(1)}% del problema (barras ámbar): ahí está el mayor retorno por esfuerzo. Con ${rows[0][0]} solo ya cubres ${cum[0].toFixed(1)}%.`;
+}
+$('ptab').addEventListener('input',pdraw);
+$('prst').onclick=pbuild;pbuild();
+/* ISHIKAWA */
+const CAT=["Mano de obra","Máquina","Material","Método","Medición","Medio ambiente"];
+const CS=[["Operador nuevo sin capacitación en montaje de sello",0],["Fatiga en el tercer turno",0],["Prensa de montaje con presión desajustada",1],["Herramienta de inserción desgastada",1],["Sellos de un lote con dureza fuera de especificación",2],["Carcasa con rebaba en el alojamiento del sello",2],["No hay instrucción de trabajo con la orientación del sello",3],["El orden de armado cambia entre turnos",3],["Manómetro de prueba sin calibrar",4],["Criterio de aceptación de fuga no definido",4],["Humedad alta que afecta el lubricante",5],["Temperatura de la nave muy variable entre turnos",5]];
+const sel=[];
+$('ccards').innerHTML=CS.map((c,i)=>`<div class="card" id="c${i}"><span>${c[0]}</span><select data-c="${i}" aria-label="Categoría de: ${c[0]}"><option value="">Elegir…</option>${CAT.map((k,j)=>`<option value="${j}">${k}</option>`).join('')}</select><small id="m${i}"></small></div>`).join('');
+function board(){$('board').innerHTML=CAT.map((k,j)=>`<div class="col"><b>${k}</b>${CS.map((c,i)=>sel[i]===String(j)?`<p>${c[0]}</p>`:'').join('')}</div>`).join('')+`<div class="col"><b>Sin clasificar</b>${CS.map((c,i)=>!sel[i]?`<p>${c[0]}</p>`:'').join('')}</div>`}
+$('ccards').addEventListener('change',e=>{const i=e.target.dataset.c;if(i===undefined)return;sel[i]=e.target.value;$('c'+i).className='card';$('m'+i).textContent='';board()});
+$('chk').onclick=()=>{let ok=0;CS.forEach((c,i)=>{const el=$('c'+i);if(sel[i]===undefined||sel[i]===''){el.className='card';$('m'+i).textContent='Falta clasificar.';return}
+  if(+sel[i]===c[1]){ok++;el.className='card ok';$('m'+i).textContent=''}else{el.className='card no';$('m'+i).textContent='Sugerido: '+CAT[c[1]]+'. Si defiendes tu elección con un argumento, también puede valer.'}});
+  $('board').insertAdjacentHTML('beforebegin','');};
+board();
+/* 5 PORQUES */
+const W=[["¿Por qué hay fuga?",["Porque el sello queda mal asentado en su alojamiento","Porque el cliente aprieta la conexión de más","Porque el sello es de un proveedor barato"],0],
+["¿Por qué queda mal asentado?",["Porque se instala inclinado al presionarlo","Porque la carcasa es de otro color","Porque el turno de noche trabaja más lento"],0],
+["¿Por qué se instala inclinado?",["Porque se coloca a mano y no hay guía de alineación","Porque la máquina está sucia","Porque hay mucho ruido en la nave"],0],
+["¿Por qué no hay guía de alineación?",["Porque el método nunca se estandarizó ni se diseñó una herramienta","Porque a los operadores no les gusta usar herramientas","Porque el supervisor no revisa a tiempo"],0]];
+let wi=0;const chain=[];
+function wdraw(){$('chain').innerHTML='<div class="why"><b>Problema:</b> fuga en el sello de la bomba.</div>'+chain.map((c,i)=>`<div class="why"><b>Porqué ${i+1}:</b> ${c}</div>`).join('');
+  if(wi<W.length){$('wq').innerHTML=`<h3>${W[wi][0]}</h3>`+W[wi][1].map((o,j)=>`<button class="opt" type="button" data-o="${j}">${o}</button>`).join('')}
+  else{$('wq').innerHTML='<div class="why" style="border-color:var(--amber)"><b>Causa raíz:</b> falta un método estándar con una herramienta guía para instalar el sello.<br><b>Acción posible:</b> diseñar una plantilla de alineación y una instrucción de trabajo, y verificar con datos que baje la fuga.</div>';$('wfb').textContent=''}}
+$('wq').addEventListener('click',e=>{const j=e.target.dataset.o;if(j===undefined)return;
+  if(+j===W[wi][2]){chain.push(W[wi][1][j]);wi++;$('wfb').textContent='Correcto: se apoya en lo que sabemos del caso.';wdraw()}
+  else $('wfb').textContent='Esa respuesta no tiene respaldo en los hechos del caso. Pregúntate: ¿qué evidencia tendría para afirmarlo?'});
+$('wrst').onclick=()=>{wi=0;chain.length=0;$('wfb').textContent='';wdraw()};wdraw();
+/* AMEF */
+const A0=[["Sello instalado inclinado",8,6,5],["Rosca dañada en la tapa",6,5,3],["Falta de lubricante en el sello",7,4,7],["Etiqueta ilegible",3,4,2]];
+function abuild(){$('atab').innerHTML=A0.map((r,i)=>`<tr><td>${r[0]}</td>${[1,2,3].map(k=>`<td><input type="number" min="1" max="10" value="${r[k]}" data-a="${i}" data-k="${k}" aria-label="${['','Severidad','Ocurrencia','Detección'][k]} de ${r[0]}" style="width:64px"></td>`).join('')}<td class="npr" id="n${i}"></td></tr>`).join('');acalc()}
+function acalc(){const out=[];A0.forEach((r,i)=>{const v=[1,2,3].map(k=>Math.min(10,Math.max(1,+document.querySelector(`[data-a="${i}"][data-k="${k}"]`).value||1)));const n=v[0]*v[1]*v[2];const c=$('n'+i);c.textContent=n;c.className='npr '+(n>=200?'hi':n>=100?'md':'lo');out.push([r[0],n])});
+  out.sort((a,b)=>b[1]-a[1]);$('ains').textContent=`Atiende primero: ${out[0][0]} (NPR ${out[0][1]}). Después: ${out.slice(1,3).map(o=>`${o[0]} (${o[1]})`).join(' y ')}. Nota que "Falta de lubricante" pesa por ser difícil de detectar, aunque no ocurra tanto.`}
+$('atab').addEventListener('input',acalc);abuild();
+/* QUIZ */
+const Q=[["¿Qué muestra la línea acumulada de un Pareto?",["El costo de cada defecto","El porcentaje acumulado de los problemas, de mayor a menor","La tendencia del defecto en el tiempo"],1,"Permite ver cuántas categorías explican la mayor parte del problema."],
+["¿Para qué sirve el diagrama de Ishikawa?",["Para medir qué tan rápido corre una máquina","Para organizar posibles causas de un problema en categorías","Para calcular el nivel sigma"],1,"Ordena las ideas del equipo y ayuda a no olvidar áreas."],
+["En un AMEF, un NPR alto indica…",["Mayor prioridad de atención, combinando severidad, ocurrencia y detección","Que la falla ya ocurrió","Que el proceso es estable"],0,"Es una guía de prioridad; las escalas dependen de cada empresa."],
+["¿Cuándo detienes los cinco porqués?",["Siempre exactamente al quinto porqué","Cuando alguien acepta la explicación","Cuando llegas a una causa corregible, respaldada por hechos"],2,"El número es una guía; lo que cuenta es la causa raíz comprobable."],
+["¿Qué orden tiene sentido para atacar un problema?",["AMEF, Pareto, cinco porqués, Ishikawa","Pareto para elegir; Ishikawa y cinco porqués para causas; AMEF para priorizar riesgos","Cinco porqués sobre cualquier defecto y luego Pareto"],1,"Primero eliges el problema con datos, luego buscas causas y al final priorizas riesgos."]];
+let sc=0,ans=0;
+$('qz').innerHTML=Q.map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<button class="opt" type="button" data-q="${i}" data-j="${j}">${o}</button>`).join('')}<div class="ex" id="x${i}"></div></div>`).join('');
+$('qz').addEventListener('click',e=>{const i=e.target.dataset.q;if(i===undefined)return;const j=+e.target.dataset.j,q=Q[i];
+  document.querySelectorAll(`[data-q="${i}"]`).forEach(b=>b.disabled=true);
+  const ok=j===q[2];if(ok)sc++;ans++;e.target.style.borderColor=ok?'var(--ok)':'var(--bad)';
+  $('x'+i).textContent=(ok?'Correcto. ':'No exactamente. ')+q[3];
+  if(ans===Q.length)$('qres').textContent=`Resultado: ${sc} de ${Q.length}.`});
+</script>
+</body>
+</html>

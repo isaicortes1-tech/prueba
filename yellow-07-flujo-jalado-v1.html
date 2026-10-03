@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flujo jalado: produce lo que se consume</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef1f3;--panel:#fff;--ink:#1b2733;--mute:#5b6b79;--line:#d3dae0;--amber:#f2b705;--ok:#2e9e5b;--bad:#d64545;--mid:#e08a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}}
+:root[data-theme="dark"]{--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;line-height:1.15;margin:0}
+main{max-width:980px;margin:0 auto;padding:24px 18px 56px}
+h1{font-size:clamp(28px,5vw,42px);font-weight:800}
+h2{font-size:24px;font-weight:800;margin-bottom:8px}
+.lead,.mute{color:var(--mute)}
+.lead{max-width:64ch;margin:10px 0 0}
+a{color:var(--ink)}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+nav a{padding:6px 12px;border:2px solid var(--ink);border-radius:4px;text-decoration:none;font:700 14px Archivo,sans-serif}
+nav a:hover{background:var(--amber);border-color:var(--amber);color:#1b2733}
+section.s{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;margin-top:22px}
+.case{border-left:6px solid var(--amber);padding:4px 0 4px 14px;margin:14px 0}
+input,select,button{font:inherit}
+input[type=number],select{padding:7px 9px;border:2px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font-weight:600;width:100%}
+label{display:block;font-weight:600;font-size:15px}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:1px}
+button{font:700 15px Archivo,sans-serif;padding:8px 15px;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:4px;cursor:pointer}
+button:hover:not(:disabled){background:var(--amber);border-color:var(--amber);color:#1b2733}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:12px 0}
+.row>div{flex:1 1 140px}
+.flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0}
+.st{border:2px solid var(--ink);border-radius:4px;padding:10px 14px;font:700 15px Archivo,sans-serif;text-align:center}
+.inv{flex:1 1 200px;min-height:56px;border:2px dashed var(--line);border-radius:4px;padding:6px;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start}
+.b{width:16px;height:16px;background:var(--amber);border:1px solid var(--ink);border-radius:2px}
+.stats{display:flex;flex-wrap:wrap;gap:18px;font-weight:600}
+.big{font:800 34px Archivo,sans-serif}
+.note{padding:10px 14px;border-left:6px solid var(--mid);background:var(--bg);margin-top:12px;font-size:15px}
+.tag{display:inline-block;background:var(--amber);color:#1b2733;font:700 12px Archivo,sans-serif;padding:2px 8px;border-radius:3px}
+.slots{display:flex;gap:8px;margin:10px 0}
+.slot{width:54px;height:54px;border:2px solid var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center;font:700 13px Archivo,sans-serif}
+.slot.full{background:var(--amber);color:#1b2733}
+.slot.minl{box-shadow:0 0 0 3px var(--bad)}
+.seq{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.m{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font:800 14px Archivo,sans-serif;border-radius:3px;color:#1b2733}
+.mA{background:var(--amber)}.mB{background:#7fb6d9}.mC{background:#a9d6a0}
+.fb{font-weight:600;min-height:24px;margin-top:6px}
+.q{border-top:1px solid var(--line);padding:12px 0}
+.opt{display:block;width:100%;text-align:left;margin:6px 0}
+.ex{color:var(--mute);margin-top:6px;font-size:16px}
+.sum li{margin:6px 0}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">Volver al índice</a>
+<h1 style="margin-top:12px">Flujo jalado: produce lo que se consume</h1>
+<p class="lead">Producir "por si acaso" llena la planta de inventario que esconde problemas. En un sistema jalado, cada proceso produce solo cuando el siguiente lo pide. Aquí lo vas a ver funcionar.</p>
+<nav aria-label="Secciones"><a href="#sim">1 Empujar vs. jalar</a><a href="#kanban">2 Kanban</a><a href="#super">3 Supermarket</a><a href="#heij">4 Heijunka</a><a href="#quiz">5 Quiz</a><a href="#resumen">6 Resumen</a></nav>
+
+<section class="s">
+<h2>El caso: bombas de agua, otra vez</h2>
+<div class="case">La estación de sellos produce a su máxima capacidad "para no quedar mal", pero el ensamble solo consume un sello por ciclo. Resultado: sellos apilados en el pasillo, mientras a la línea le faltan otras piezas porque el material y el tiempo se fueron en lo que no se necesitaba.</div>
+</section>
+
+<section class="s" id="sim">
+<h2>1. Empujar vs. jalar</h2>
+<p>La estación A (sellos) alimenta a la B (ensamble), que consume 1 pieza por ciclo. A puede producir hasta 2 por ciclo. Prueba los dos modos y, en medio de la simulación, detén el ensamble unos ciclos.</p>
+<div class="row">
+<div><label for="mode">Modo</label><select id="mode"><option value="push">Empujar (producir según el plan)</option><option value="pull">Jalar (producir según consumo)</option></select></div>
+<div><label for="cards">Límite de piezas en jalado (tarjetas)</label><input id="cards" type="number" min="1" max="20" value="4"></div>
+</div>
+<div class="flow"><div class="st">A<br>Sellos</div><div class="inv" id="inv" aria-label="Inventario entre estaciones"></div><div class="st">B<br>Ensamble</div></div>
+<div class="stats" aria-live="polite"><span>Ciclo <span class="big" id="tk">0</span></span><span>Inventario <span class="big" id="iv">0</span></span><span>Producidas <span class="big" id="pr">0</span></span><span>Consumidas <span class="big" id="cn">0</span></span></div>
+<div class="row"><button id="step" type="button">Avanzar 1 ciclo</button><button id="run" type="button">Avanzar 10 ciclos</button><button id="stop" type="button">Detener ensamble 3 ciclos</button><button id="rst" type="button">Reiniciar</button></div>
+<div class="note" id="simmsg" aria-live="polite">Avanza varios ciclos en modo "Empujar" y mira cómo crece el inventario. Luego reinicia y prueba "Jalar".</div>
+</section>
+
+<section class="s" id="kanban">
+<h2>2. Calculadora de Kanban</h2>
+<p>Cada tarjeta representa un contenedor que circula entre el proceso cliente y el proveedor. Para saber cuántas necesitas:</p>
+<p><b>Tarjetas = demanda por hora × tiempo de reposición (en horas) × (1 + seguridad) ÷ piezas por contenedor</b>, redondeando hacia arriba.</p>
+<div class="row">
+<div><label for="kd">Demanda (piezas/hora)</label><input id="kd" type="number" min="1" value="120"></div>
+<div><label for="kl">Tiempo de reposición (min)</label><input id="kl" type="number" min="1" value="45"></div>
+<div><label for="ks">Factor de seguridad (%)</label><input id="ks" type="number" min="0" value="10"></div>
+<div><label for="kc">Piezas por contenedor</label><input id="kc" type="number" min="1" value="20"></div>
+</div>
+<div class="stats"><span>Tarjetas <span class="big" id="kn">--</span></span><span>Inventario máximo <span class="big" id="km">--</span> <small>piezas</small></span></div>
+<div class="note" id="kmsg" aria-live="polite"></div>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> El factor de seguridad y la forma exacta de la fórmula cambian entre cursos y empresas. Usa la que te enseñen para tu examen.</div>
+</section>
+
+<section class="s" id="super">
+<h2>3. Supermarket: el almacén donde se jala</h2>
+<p>Un supermarket es un punto de almacenamiento controlado entre dos procesos: el cliente retira lo que necesita y esa salida dispara la reposición. Aquí hay 6 espacios de contenedor. Fija el mínimo (punto de reposición) y simula retiros.</p>
+<div class="row"><div><label for="smin">Mínimo (contenedores)</label><input id="smin" type="number" min="0" max="5" value="2"></div></div>
+<div class="slots" id="slots" aria-label="Espacios del supermarket"></div>
+<div class="row"><button id="wd" type="button">Retirar un contenedor</button><button id="rf" type="button">Llega una reposición (+1)</button><button id="srs" type="button">Reiniciar</button></div>
+<div class="note" id="smsg" aria-live="polite"></div>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> Algunas fuentes definen mínimo y máximo con fórmulas distintas, o usan puntos de reposición por tiempo. Contrasta con tus apuntes.</div>
+</section>
+
+<section class="s" id="heij">
+<h2>4. Heijunka: nivelar la producción</h2>
+<p>En lugar de hacer todo un modelo y luego el siguiente (lotes), se alternan en secuencias cortas para que el cliente vea de todo y el inventario no se dispare. Escribe cuántas piezas de cada modelo hay que producir hoy.</p>
+<div class="row"><div><label for="ha">Modelo A</label><input id="ha" type="number" min="0" max="20" value="6"></div><div><label for="hb">Modelo B</label><input id="hb" type="number" min="0" max="20" value="3"></div><div><label for="hc">Modelo C</label><input id="hc" type="number" min="0" max="20" value="3"></div></div>
+<h3>Por lotes</h3><div class="seq" id="sb"></div>
+<h3 style="margin-top:10px">Nivelada</h3><div class="seq" id="sl"></div>
+<div class="note" id="hmsg" aria-live="polite"></div>
+</section>
+
+<section class="s" id="quiz"><h2>5. Quiz rápido</h2><div id="qz"></div><p class="fb" id="qres" aria-live="polite"></p></section>
+
+<section class="s" id="resumen">
+<h2>6. Para repasar</h2>
+<ul class="sum">
+<li><b>Jalar es producir contra consumo real:</b> la señal (como una tarjeta) viene del cliente, no del plan.</li>
+<li><b>Las tarjetas ponen un tope al inventario:</b> más tarjetas significan más inventario en proceso y problemas escondidos; menos tarjetas exigen un flujo confiable.</li>
+<li><b>Nivelar evita los picos:</b> Heijunka mezcla modelos en secuencias cortas, para que el proveedor y el cliente reciban un ritmo parejo.</li>
+</ul>
+<p class="mute">Material educativo propio, sin relación con ninguna certificadora. Contrasta lo marcado con "Verificar" con tus fuentes.</p>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+/* SIM */
+let S;function init(){S={t:0,inv:0,pr:0,cn:0,stop:0}}init();
+function sdraw(){$('tk').textContent=S.t;$('iv').textContent=S.inv;$('pr').textContent=S.pr;$('cn').textContent=S.cn;
+ $('inv').innerHTML='<span class="b"></span>'.repeat(Math.min(S.inv,150))+(S.inv>150?'…':'')}
+function tick(){const mode=$('mode').value,cap=Math.max(1,Math.min(20,+$('cards').value||1));S.t++;
+ const p=mode==='push'?2:Math.max(0,Math.min(2,cap-S.inv));S.inv+=p;S.pr+=p;
+ if(S.stop>0)S.stop--;else if(S.inv>0){S.inv--;S.cn++}
+ sdraw();smsg(mode)}
+function smsg(mode){let m;
+ if(S.t===0)return;
+ if(mode==='push')m=`Modo empujar: A produce 2 por ciclo aunque B consuma 1. El inventario sube ${S.inv>10?'sin control':'ciclo a ciclo'} y cada falla en B lo empeora.`;
+ else m=S.stop>0?'El ensamble está detenido y A dejó de producir porque se llenaron las tarjetas: no se genera sobreproducción.':`Modo jalar: el inventario no pasa del límite de ${$('cards').value} piezas. A solo repone lo que B consumió.`;
+ $('simmsg').textContent=m}
+$('step').onclick=tick;$('run').onclick=()=>{for(let i=0;i<10;i++)tick()};
+$('stop').onclick=()=>{S.stop+=3;smsg($('mode').value);$('simmsg').textContent='Ensamble detenido por 3 ciclos. Avanza y observa qué hace el inventario.'};
+$('rst').onclick=()=>{init();sdraw();$('simmsg').textContent='Reiniciado. Elige un modo y avanza ciclos.'};
+$('mode').onchange=$('rst').onclick;sdraw();
+/* KANBAN */
+function kcalc(){const d=+$('kd').value,l=+$('kl').value,s=+$('ks').value,c=+$('kc').value;
+ if(!(d>0&&l>0&&c>0&&s>=0)){$('kn').textContent='--';$('km').textContent='--';$('kmsg').textContent='Escribe valores válidos: demanda, reposición y contenedor mayores que 0.';return}
+ const raw=d*(l/60)*(1+s/100)/c,n=Math.ceil(raw);
+ $('kn').textContent=n;$('km').textContent=n*c;
+ $('kmsg').textContent=`Cálculo: ${d} × ${(l/60).toFixed(2)} h × ${(1+s/100).toFixed(2)} ÷ ${c} = ${raw.toFixed(2)}, que se redondea a ${n} tarjetas. Si el tiempo de reposición se reduce a la mitad, necesitarías cerca de la mitad de las tarjetas: menos inventario con el mismo servicio.`}
+['kd','kl','ks','kc'].forEach(i=>$(i).addEventListener('input',kcalc));kcalc();
+/* SUPERMARKET */
+let st=6;
+function sup(){const mn=Math.max(0,Math.min(5,+$('smin').value||0));
+ $('slots').innerHTML=Array.from({length:6},(_,i)=>`<div class="slot ${i<st?'full':''} ${i===mn-1?'minl':''}">${i<st?'Lleno':'Vacío'}</div>`).join('');
+ let m='Nivel normal: no hace falta pedir reposición.';
+ if(st===0)m='Faltante: la línea cliente se detiene. El mínimo estaba demasiado bajo para el tiempo de reposición.';
+ else if(st<=mn)m='Señal de reposición: el nivel llegó al mínimo. Se pide producir para volver al máximo (6).';
+ $('smsg').textContent=`Contenedores: ${st} de 6. ${m}`}
+$('wd').onclick=()=>{if(st>0)st--;sup()};$('rf').onclick=()=>{if(st<6)st++;sup()};$('srs').onclick=()=>{st=6;sup()};$('smin').oninput=sup;sup();
+/* HEIJUNKA */
+function lev(q){const T=q.reduce((a,b)=>a+b,0),done=[0,0,0],out=[];for(let k=1;k<=T;k++){let bi=0,bv=-1e9;q.forEach((v,i)=>{const sc=v*k/T-done[i];if(sc>bv+1e-9&&done[i]<v){bv=sc;bi=i}});done[bi]++;out.push('ABC'[bi])}return out}
+function chips(a){return a.map(x=>`<span class="m m${x}">${x}</span>`).join('')}
+function hcalc(){const q=['ha','hb','hc'].map(i=>Math.max(0,Math.min(20,Math.floor(+$(i).value)||0))),T=q.reduce((a,b)=>a+b,0);
+ if(!T){$('sb').innerHTML='';$('sl').innerHTML='';$('hmsg').textContent='Escribe al menos una pieza.';return}
+ const batch=[];q.forEach((v,i)=>{for(let j=0;j<v;j++)batch.push('ABC'[i])});const L=lev(q);
+ $('sb').innerHTML=chips(batch);$('sl').innerHTML=chips(L);
+ const first=a=>'ABC'.split('').map(k=>q['ABC'.indexOf(k)]>0?k+': posición '+(a.indexOf(k)+1):'').filter(Boolean).join(', ');
+ const run=a=>{let m=1,c=1;for(let i=1;i<a.length;i++){c=a[i]===a[i-1]?c+1:1;m=Math.max(m,c)}return m};
+ $('hmsg').textContent=`Primera aparición, por lotes: ${first(batch)}. Nivelada: ${first(L)}. Racha más larga de un mismo modelo: ${run(batch)} por lotes contra ${run(L)} nivelada. Con la secuencia nivelada, el cliente de cada modelo espera menos y el consumo de materiales es más parejo.`}
+['ha','hb','hc'].forEach(i=>$(i).addEventListener('input',hcalc));hcalc();
+/* QUIZ */
+const Q=[["¿Qué dispara la producción en un sistema jalado?",["El plan mensual de ventas","El consumo del proceso siguiente, comunicado con una señal como una tarjeta","La capacidad máxima de la máquina"],1,"El cliente jala; el proveedor repone lo consumido."],
+["Si el tiempo de reposición se duplica y lo demás no cambia, las tarjetas Kanban necesarias…",["Aumentan aproximadamente al doble","Se reducen a la mitad","No cambian"],0,"Más tiempo de reposición exige más material circulando para no quedarte sin piezas."],
+["Un supermarket sirve para…",["Almacenar sin límite todo lo que se produzca","Mantener un inventario controlado entre procesos, del que el cliente jala","Reemplazar el trabajo estándar"],1,"Es un punto de reserva con reglas claras de mínimo, máximo y reposición."],
+["Heijunka consiste en…",["Producir cada modelo en lotes grandes para ahorrar cambios","Nivelar volumen y mezcla con secuencias cortas y alternadas","Eliminar la inspección final"],1,"Busca un ritmo parejo y menos inventario, aunque exige cambios de modelo ágiles."],
+["¿Qué riesgo tiene poner demasiadas tarjetas Kanban?",["Más inventario en proceso que esconde problemas","Que el cliente reciba piezas más rápido","Que baje el costo de almacenamiento"],0,"El inventario extra tapa fallas y desperdicios que conviene hacer visibles."]];
+let sc=0,ans=0;
+$('qz').innerHTML=Q.map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<button class="opt" type="button" data-q="${i}" data-j="${j}">${o}</button>`).join('')}<div class="ex" id="x${i}"></div></div>`).join('');
+$('qz').addEventListener('click',e=>{const i=e.target.dataset.q;if(i===undefined)return;const j=+e.target.dataset.j,q=Q[i];
+ document.querySelectorAll(`[data-q="${i}"]`).forEach(b=>b.disabled=true);
+ const ok=j===q[2];if(ok)sc++;ans++;e.target.style.borderColor=ok?'var(--ok)':'var(--bad)';
+ $('x'+i).textContent=(ok?'Correcto. ':'No exactamente. ')+q[3];
+ if(ans===Q.length)$('qres').textContent=`Resultado: ${sc} de ${Q.length}.`});
+</script>
+</body>
+</html>

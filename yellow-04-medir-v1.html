@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Medir: sin datos solo hay opiniones</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef1f3;--panel:#fff;--ink:#1b2733;--mute:#5b6b79;--line:#d3dae0;--amber:#f2b705;--ok:#2e9e5b;--bad:#d64545;--mid:#e08a1e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}}
+:root[data-theme="dark"]{--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;line-height:1.15;margin:0}
+main{max-width:980px;margin:0 auto;padding:24px 18px 56px}
+h1{font-size:clamp(28px,5vw,42px);font-weight:800}
+h2{font-size:24px;font-weight:800;margin-bottom:8px}
+.lead,.mute{color:var(--mute)}
+.lead{max-width:64ch;margin:10px 0 0}
+a{color:var(--ink)}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+nav a{padding:6px 12px;border:2px solid var(--ink);border-radius:4px;text-decoration:none;font:700 14px Archivo,sans-serif}
+nav a:hover{background:var(--amber);border-color:var(--amber);color:#1b2733}
+section.s{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;margin-top:22px}
+.case{border-left:6px solid var(--amber);padding:4px 0 4px 14px;margin:14px 0}
+input,select,button{font:inherit}
+input[type=number],input[type=text],select{padding:7px 9px;border:2px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font-weight:600}
+input[type=number],input[type=text]{width:100%}
+label{display:block;font-weight:600;font-size:15px}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:1px}
+button{font:700 15px Archivo,sans-serif;padding:8px 15px;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:4px;cursor:pointer}
+button:hover:not(:disabled){background:var(--amber);border-color:var(--amber);color:#1b2733}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:12px 0}
+.row>div{flex:1 1 150px}
+.chips{display:flex;flex-direction:column;gap:8px}
+.card{display:flex;gap:8px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:4px;padding:8px 10px;background:var(--bg);flex-wrap:wrap}
+.card>span{flex:1 1 260px}
+.card.ok{border-color:var(--ok);border-width:2px}.card.no{border-color:var(--bad);border-width:2px}
+.card small{width:100%;color:var(--bad)}
+.note{padding:10px 14px;border-left:6px solid var(--mid);background:var(--bg);margin-top:12px;font-size:15px}
+.tag{display:inline-block;background:var(--amber);color:#1b2733;font:700 12px Archivo,sans-serif;padding:2px 8px;border-radius:3px}
+.fb{font-weight:600;min-height:24px;margin-top:6px}
+.big{font:800 32px Archivo,sans-serif}
+.stats{display:flex;flex-wrap:wrap;gap:20px;font-weight:600;align-items:baseline}
+svg text{fill:var(--ink);font-family:Archivo,sans-serif}
+.q{border-top:1px solid var(--line);padding:12px 0}
+.opt{display:block;width:100%;text-align:left;margin:6px 0}
+.ex{color:var(--mute);margin-top:6px;font-size:16px}
+.sum li{margin:6px 0}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">Volver al índice</a>
+<h1 style="margin-top:12px">Medir: sin datos solo hay opiniones</h1>
+<p class="lead">Medir es saber dónde estás parado. Aquí aprendes a reconocer los tipos de datos, resumirlos con estadística básica, ver su comportamiento en el tiempo, distinguir tipos de variación y calcular el nivel sigma.</p>
+<nav aria-label="Secciones"><a href="#ti">1 Tipos de datos</a><a href="#es">2 Estadística</a><a href="#ru">3 Gráfica de corrida</a><a href="#va">4 Variación</a><a href="#sg">5 Nivel sigma</a><a href="#quiz">6 Quiz</a></nav>
+
+<section class="s">
+<h2>El caso: tiempos de ciclo y defectos</h2>
+<div class="case">En la fase Measure del proyecto de las bombas, el equipo recolecta dos tipos de datos: tiempos de ciclo del ensamble y conteo de defectos. Antes de analizarlos, hay que entenderlos.</div>
+</section>
+
+<section class="s" id="ti">
+<h2>1. Tipos de datos</h2>
+<p>Continuos: se miden en una escala (milímetros, segundos). Discretos: se cuentan (defectos, paros). Atributos: son categorías (aprobado o rechazado, color).</p>
+<div class="chips" id="t"></div>
+<p><button id="tbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="tres" aria-live="polite"></p>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> Algunos cursos agrupan los atributos junto con los datos discretos. Usa la clasificación de tu curso.</div>
+</section>
+
+<section class="s" id="es">
+<h2>2. Estadística básica</h2>
+<p>Estos son los tiempos de ciclo (segundos) de 15 ensambles. Cámbialos, separados por comas, y mira cómo se mueven los números. Prueba cambiar el 75 por 60.</p>
+<div class="row"><div style="flex:1 1 100%"><label for="dt">Datos (segundos, separados por comas)</label><input id="dt" type="text" value="58,61,59,64,57,60,62,59,75,60,61,58,63,59,60"></div></div>
+<div class="stats" aria-live="polite"><span>Media <span class="big" id="s1">--</span></span><span>Mediana <span class="big" id="s2">--</span></span><span>Rango <span class="big" id="s3">--</span></span><span>Desv. estándar <span class="big" id="s4">--</span></span></div>
+<div class="note" id="smsg" aria-live="polite"></div>
+</section>
+
+<section class="s" id="ru">
+<h2>3. Gráfica de corrida</h2>
+<p>La gráfica de corrida muestra los datos en el orden en que ocurrieron, con la mediana como referencia. Sirve para ver tendencias o cambios que un promedio esconde.</p>
+<svg id="rc" viewBox="0 0 620 240" style="width:100%;height:auto;background:var(--bg);border:1px solid var(--line);border-radius:4px" role="img" aria-label="Gráfica de corrida"></svg>
+<div class="note" id="rmsg" aria-live="polite"></div>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> Las reglas para detectar cambios (por ejemplo, 8 puntos seguidos de un lado de la mediana, o 6 en ascenso) varían entre autores. Usa las de tu curso.</div>
+</section>
+
+<section class="s" id="va">
+<h2>4. Variación: causas comunes y especiales</h2>
+<p>Todo proceso varía. La variación de causa común es la natural del sistema; la de causa especial viene de algo puntual y asignable. Clasifica cada situación.</p>
+<div class="chips" id="c"></div>
+<p><button id="cbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="cres" aria-live="polite"></p>
+</section>
+
+<section class="s" id="sg">
+<h2>5. DPMO y nivel sigma</h2>
+<p>Cuenta cuántas oportunidades de defecto hay por unidad (por ejemplo, 5 puntos del ensamble donde algo puede salir mal) y cuántos defectos aparecieron.</p>
+<div class="row"><div><label for="gu">Unidades revisadas</label><input id="gu" type="number" min="1" value="1000"></div><div><label for="go">Oportunidades por unidad</label><input id="go" type="number" min="1" value="5"></div><div><label for="gd">Defectos encontrados</label><input id="gd" type="number" min="0" value="38"></div></div>
+<div class="stats" aria-live="polite"><span>DPMO <span class="big" id="g1">--</span></span><span>Nivel sigma <span class="big" id="g2">--</span></span></div>
+<div class="note" id="gmsg" aria-live="polite"></div>
+<div class="note" style="border-color:var(--amber)"><span class="tag">Verificar</span> Este cálculo usa la convención del desplazamiento de 1.5 sigma (muy común). Algunos cursos usan una tabla; el valor puede diferir un poco. Para medir tu OEE, usa también la calculadora OEE del sitio.</div>
+</section>
+
+<section class="s" id="quiz"><h2>6. Quiz rápido</h2><div id="qz"></div><p class="fb" id="qres" aria-live="polite"></p></section>
+
+<section class="s">
+<h2>Para repasar</h2>
+<ul class="sum">
+<li><b>Primero conoce tus datos:</b> continuos, discretos o atributos; de eso depende cómo los analizas.</li>
+<li><b>La media no cuenta todo:</b> la mediana, el rango y la gráfica de corrida muestran lo que un promedio esconde.</li>
+<li><b>Distingue la variación y mide el desempeño:</b> causas comunes contra especiales, y DPMO con nivel sigma como medida estándar.</li>
+</ul>
+<p class="mute">Material educativo propio, sin relación con ninguna certificadora. Contrasta lo marcado con "Verificar" con tus fuentes.</p>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+function cls(id,items,opts,extra){
+ const sel=[],box=$(id);
+ box.innerHTML=items.map((c,i)=>`<div class="card" id="${id}${i}"><span>${c[0]}</span><select data-i="${i}" aria-label="Clasificar: ${c[0]}"><option value="">Elegir…</option>${opts.map((k,j)=>`<option value="${j}">${k}</option>`).join('')}</select><small id="${id}m${i}"></small></div>`).join('');
+ box.addEventListener('change',e=>{const i=e.target.dataset.i;if(i===undefined)return;sel[i]=e.target.value;$(id+i).className='card';$(id+'m'+i).textContent=''});
+ $(id+'btn').onclick=()=>{let ok=0;items.forEach((c,i)=>{const el=$(id+i),m=$(id+'m'+i);
+  if(sel[i]===undefined||sel[i]===''){el.className='card';m.textContent='Falta clasificar.';return}
+  if(+sel[i]===c[1]){ok++;el.className='card ok';m.textContent=''}else{el.className='card no';m.textContent='Sugerido: '+opts[c[1]]+'. '+extra}});
+  $(id+'res').textContent=`Aciertos: ${ok} de ${items.length}.`};
+}
+cls('t',[["Diámetro de una flecha en milímetros",0],["Número de defectos por bomba",1],["Bomba aprobada o rechazada",2],["Tiempo de ciclo en segundos",0],["Color de la carcasa",2],["Cantidad de paros en el turno",1]],["Continuo","Discreto (conteo)","Atributo (categoría)"],'Pregunta: ¿se mide, se cuenta o es una categoría?');
+cls('c',[["Pequeñas diferencias entre piezas por el desgaste normal",0],["Falla repentina de un rodamiento",1],["Un lote de material con dureza fuera de especificación",1],["Variación natural de la temperatura durante el día",0]],["Causa común","Causa especial"],'Si es parte natural del sistema es común; si es algo puntual y asignable, es especial.');
+/* ESTADISTICA */
+function parse(){return $('dt').value.split(/[,\s;]+/).map(parseFloat).filter(Number.isFinite)}
+function med(a){const s=[...a].sort((x,y)=>x-y),n=s.length;return n%2?s[(n-1)/2]:(s[n/2-1]+s[n/2])/2}
+function est(){const a=parse();
+ if(a.length<3){['s1','s2','s3','s4'].forEach(i=>$(i).textContent='--');$('smsg').textContent='Escribe al menos 3 números.';$('rc').innerHTML='';$('rmsg').textContent='';return}
+ const n=a.length,m=a.reduce((x,y)=>x+y,0)/n,md=med(a),mx=Math.max(...a),mn=Math.min(...a),sd=Math.sqrt(a.reduce((x,y)=>x+(y-m)**2,0)/(n-1));
+ $('s1').textContent=m.toFixed(1);$('s2').textContent=md.toFixed(1);$('s3').textContent=(mx-mn).toFixed(1);$('s4').textContent=sd.toFixed(2);
+ $('smsg').textContent=Math.abs(m-md)>sd*0.15?`La media (${m.toFixed(1)}) y la mediana (${md.toFixed(1)}) se separan: probablemente hay un valor extremo jalando el promedio. Revisa ese dato antes de decidir.`:`La media y la mediana son parecidas: los datos no están muy sesgados. La desviación estándar (${sd.toFixed(2)}) indica qué tan dispersos están.`;
+ run(a,md)}
+function run(a,md){const W=620,H=240,l=40,r=14,t=16,b=28,n=a.length,mn=Math.min(...a,md),mx=Math.max(...a,md),sp=(mx-mn)||1,X=i=>l+(n>1?i*(W-l-r)/(n-1):0),Y=v=>t+(H-t-b)*(1-(v-mn)/sp);
+ let s=`<line x1="${l}" x2="${W-r}" y1="${Y(md)}" y2="${Y(md)}" stroke="var(--bad)" stroke-dasharray="6 4"/><text x="${W-r}" y="${Y(md)-5}" text-anchor="end" font-size="12">Mediana ${md.toFixed(1)}</text>`;
+ s+=`<polyline fill="none" stroke="var(--ink)" stroke-width="2" points="${a.map((v,i)=>X(i)+','+Y(v)).join(' ')}"/>`;
+ a.forEach((v,i)=>{s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="4" fill="var(--amber)" stroke="var(--ink)"/>`});
+ s+=`<text x="${l}" y="${H-8}" font-size="12">Orden de los datos</text><text x="4" y="${t+4}" font-size="12">${mx.toFixed(0)}</text><text x="4" y="${H-b}" font-size="12">${mn.toFixed(0)}</text>`;
+ $('rc').innerHTML=s;
+ let best=0,cur=0,side=0;a.forEach(v=>{const d=v>md?1:v<md?-1:0;if(d===0)return;if(d===side)cur++;else{side=d;cur=1}best=Math.max(best,cur)});
+ let tr=1,mt=1;for(let i=1;i<a.length;i++){if(a[i]>a[i-1]){tr=tr>0&&i>1&&a[i-1]>a[i-2]?tr+1:2}else if(a[i]<a[i-1]){tr=tr<0&&i>1&&a[i-1]<a[i-2]?tr-1:-2}else tr=1;mt=Math.max(mt,Math.abs(tr))}
+ const f=[];if(best>=8)f.push(`${best} puntos seguidos del mismo lado de la mediana (posible cambio de nivel)`);if(mt>=6)f.push(`${mt} puntos seguidos en una misma dirección (posible tendencia)`);
+ $('rmsg').textContent=f.length?'Señal: '+f.join('; ')+'. Investiga qué cambió.':'No hay señales claras de tendencia ni cambio de nivel con estas reglas. Aun así, observa los puntos aislados que se alejan de la mediana.'}
+$('dt').addEventListener('input',est);est();
+/* SIGMA */
+function zq(p){if(p<=0)return Infinity;if(p>=1)return -Infinity;const f=q=>{const t=Math.sqrt(-2*Math.log(q));return t-(2.515517+0.802853*t+0.010328*t*t)/(1+1.432788*t+0.189269*t*t+0.001308*t*t*t)};return p<0.5?f(p):-f(1-p)}
+function sg(){const u=+$('gu').value,o=+$('go').value,d=+$('gd').value;
+ if(!(u>0&&o>0&&d>=0&&d<=u*o)){$('g1').textContent='--';$('g2').textContent='--';$('gmsg').textContent='Revisa los datos: los defectos no pueden superar las oportunidades totales.';return}
+ const dpmo=d/(u*o)*1e6;$('g1').textContent=Math.round(dpmo).toLocaleString('es-MX');
+ if(d===0){$('g2').textContent='> 6';$('gmsg').textContent='Con cero defectos el nivel sigma excede la tabla habitual; junta más datos o más unidades.';return}
+ const s=zq(dpmo/1e6)+1.5;$('g2').textContent=s.toFixed(2);
+ $('gmsg').textContent=`${d} defectos en ${(u*o).toLocaleString('es-MX')} oportunidades dan ${Math.round(dpmo).toLocaleString('es-MX')} defectos por millón. Como referencia, 6.0 sigma equivale a unos 3.4 DPMO, y 4.0 sigma a unos 6,210.`}
+['gu','go','gd'].forEach(i=>$(i).addEventListener('input',sg));sg();
+const Q=[["\"Bomba aprobada o rechazada\" es un dato…",["Continuo","De atributo (categoría)","Que no se puede analizar"],1,"Es una categoría de dos valores."],
+["Si la media es mucho mayor que la mediana, probablemente…",["Hay un valor extremo jalando el promedio","Los datos son perfectos","Faltan datos"],0,"La mediana resiste mejor a los extremos."],
+["La gráfica de corrida muestra…",["Los datos en el orden en que ocurrieron","Las causas del problema","El costo de la calidad"],0,"Sirve para ver tendencias y cambios en el tiempo."],
+["Una falla repentina de un rodamiento es variación de causa…",["Común","Especial"],1,"Es puntual y asignable, no parte natural del sistema."],
+["DPMO significa…",["Defectos por millón de oportunidades","Datos por mes operativo","Desviación promedio de la media"],0,"Es la base para calcular el nivel sigma."]];
+let sc=0,ans=0;
+$('qz').innerHTML=Q.map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<button class="opt" type="button" data-q="${i}" data-j="${j}">${o}</button>`).join('')}<div class="ex" id="x${i}"></div></div>`).join('');
+$('qz').addEventListener('click',e=>{const i=e.target.dataset.q;if(i===undefined)return;const j=+e.target.dataset.j,q=Q[i];
+ document.querySelectorAll(`[data-q="${i}"]`).forEach(b=>b.disabled=true);
+ const ok=j===q[2];if(ok)sc++;ans++;e.target.style.borderColor=ok?'var(--ok)':'var(--bad)';
+ $('x'+i).textContent=(ok?'Correcto. ':'No exactamente. ')+q[3];
+ if(ans===Q.length)$('qres').textContent=`Resultado: ${sc} de ${Q.length}.`});
+</script>
+</body>
+</html>
