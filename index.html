@@ -3,57 +3,49 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lean Interactivo: Yellow Belt</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---bg:#eef1f3;--panel:#fff;--ink:#1b2733;--mute:#5b6b79;--line:#d3dae0;--amber:#f2b705}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}}
-:root[data-theme="dark"]{--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46}
-*,*:before,*:after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif}
-h1,h2,h3{font-family:Archivo,system-ui,sans-serif;line-height:1.15;margin:0}
-main{max-width:980px;margin:0 auto;padding:28px 18px 56px}
-h1{font-size:clamp(30px,6vw,48px);font-weight:800}
-.lead{color:var(--mute);max-width:62ch;margin:10px 0 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-top:26px}
-a.card{display:block;background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--amber);border-radius:6px;padding:16px;text-decoration:none;color:inherit}
-a.card:hover{border-color:var(--ink);border-left-color:var(--amber)}
-a.card:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
-.n{font:800 14px Archivo,sans-serif;color:var(--mute)}
-h3{font-size:19px;margin:4px 0 6px}
-.card p{margin:0;color:var(--mute);font-size:15px}
-h2{font-size:22px;font-weight:800;margin-top:34px}
-footer{margin-top:34px;color:var(--mute);font-size:14px}
-</style>
+<title>Lean Interactivo</title>
+<meta name="description" content="Aprende Lean Six Sigma practicando: simulaciones, calculadoras y casos interactivos.">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
+<div id="site-nav"></div>
+
 <main>
-<h1>Lean Interactivo</h1>
-<p class="lead">Aprende Lean Six Sigma (nivel Yellow Belt) practicando: simulaciones, calculadoras y casos en lugar de diapositivas. Sigue el orden sugerido o entra al tema que necesites.</p>
+<section class="tile">
+  <p class="eyebrow">Yellow Belt</p>
+  <h1>Lean Interactivo.</h1>
+  <p class="tag">Aprende practicando, no leyendo diapositivas.</p>
+  <p class="links"><a href="toolings.html">Explorar toolings</a><a href="calculadora-oee.html">Probar la calculadora OEE</a></p>
+  <div class="ring" role="img" aria-label="Ejemplo de OEE al 85%"><div>85%<small>OEE</small></div></div>
+</section>
 
-<h2>Ruta de estudio</h2>
-<div class="grid">
-<a class="card" href="yellow-01-mapa-dmaic-v1.html"><span class="n">Módulo 1</span><h3>Mapa y DMAIC</h3><p>Lean y Six Sigma, DMAIC, PDCA, A3, roles, selección de proyectos y costos de no calidad.</p></a>
-<a class="card" href="yellow-02-define-v1.html"><span class="n">Módulo 2</span><h3>Define</h3><p>Voz del cliente, SIPOC, enunciado del problema, indicadores y objetivos SMART.</p></a>
-<a class="card" href="yellow-03-ver-proceso-v1.html"><span class="n">Módulo 3</span><h3>Ver el proceso</h3><p>Gemba, gestión visual (Fish Market), VSM, Swimlane y diagrama de espagueti.</p></a>
-<a class="card" href="yellow-04-medir-v1.html"><span class="n">Módulo 4</span><h3>Medir</h3><p>Tipos de datos, estadística básica, gráfica de corrida, variación y nivel sigma.</p></a>
-<a class="card" href="yellow-05-desperdicios-estandar-v1.html"><span class="n">Módulo 5</span><h3>Desperdicios y estándar</h3><p>7+1 desperdicios, 5S, takt time, balanceo de línea y trabajo estándar.</p></a>
-<a class="card" href="yellow-06-analizar-v1.html"><span class="n">Módulo 6</span><h3>Analizar</h3><p>Pareto, Ishikawa, cinco porqués y AMEF con un caso completo.</p></a>
-<a class="card" href="yellow-07-flujo-jalado-v1.html"><span class="n">Módulo 7</span><h3>Flujo jalado</h3><p>Empujar vs. jalar, Kanban, Supermarket y Heijunka.</p></a>
-<a class="card" href="yellow-08-calidad-fuente-v1.html"><span class="n">Módulo 8</span><h3>Calidad en la fuente</h3><p>Poka Yoke, Jidoka y Andon, SMED, TPM y kaizen.</p></a>
-<a class="card" href="yellow-09-controlar-v1.html"><span class="n">Módulo 9</span><h3>Controlar</h3><p>Plan de acción con Gantt, plan de control, semáforo, gestión diaria y Lean digital.</p></a>
+<section class="tile dark">
+  <h2>9 módulos.</h2>
+  <p class="tag">De DMAIC a Controlar, con simulaciones en cada paso.</p>
+  <p class="links"><a href="toolings.html">Ver todos los módulos</a></p>
+  <div class="dots" id="dots"></div>
+</section>
+
+<div class="duo">
+  <section class="tile alt">
+    <h2>Calculadora OEE.</h2>
+    <p class="tag">Descubre dónde pierdes tiempo.</p>
+    <p class="links"><a href="calculadora-oee.html">Abrir</a></p>
+  </section>
+  <section class="tile alt">
+    <h2>Casos reales.</h2>
+    <p class="tag">Una planta de bombas te acompaña de principio a fin.</p>
+    <p class="links"><a href="yellow-01-mapa-dmaic-v1.html">Empezar por el módulo 1</a></p>
+  </section>
 </div>
 
-<h2>Herramientas</h2>
-<div class="grid">
-<a class="card" href="calculadora-oee.html"><span class="n">Calculadora</span><h3>OEE</h3><p>Disponibilidad, rendimiento y calidad: descubre dónde pierdes tiempo.</p></a>
-</div>
-
-<footer>Material educativo propio, sin relación con ninguna certificadora. Este sitio no emite certificaciones.</footer>
+<section class="gal">
+  <h2>Más por descubrir.</h2>
+  <div class="sx" id="gal"></div>
+</section>
 </main>
+
+<div id="site-footer"></div>
+<script src="site.js"></script>
 </body>
 </html>
-
-
-
