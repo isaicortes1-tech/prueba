@@ -3,7 +3,7 @@
    ===================================================== */
 
 /* Nombre de trabajo del proyecto (cámbialo cuando elijas el definitivo) */
-const SITE = { nombre: "Industria Clara" };
+const SITE = { nombre: "I N T R O" };
 
 /* MENÚ SUPERIOR: { t: "Texto", h: "archivo.html" } */
 const MENU = [
