@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadora OEE: entiende dónde pierdes tiempo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef1f3;--panel:#fff;--ink:#1b2733;--mute:#5b6b79;--line:#d3dae0;--amber:#f2b705;--ok:#2e9e5b;--bad:#d64545;--mid:#e08a1e;--bar:#1b2733}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46;--bar:#e8edf1}}
+:root[data-theme="dark"]{--bg:#12181e;--panel:#1b242c;--ink:#e8edf1;--mute:#97a6b3;--line:#2f3b46;--bar:#e8edf1}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;line-height:1.15;margin:0}
+main{max-width:980px;margin:0 auto;padding:28px 18px 56px}
+h1{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.01em}
+.lead{color:var(--mute);max-width:62ch;margin:10px 0 0}
+.formula{display:inline-block;margin-top:16px;padding:8px 14px;border-left:6px solid var(--amber);background:var(--panel);font-family:Archivo,sans-serif;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px}
+h2{font-size:20px;font-weight:700;margin-bottom:14px}
+.field{margin-bottom:16px}
+.field label{display:block;font-weight:600}
+.field small{display:block;color:var(--mute);font-size:14px;margin-bottom:5px}
+.field input{width:100%;font:600 18px Archivo,sans-serif;padding:9px 11px;border:2px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink)}
+.field input:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:1px}
+button{font:700 15px Archivo,sans-serif;padding:9px 16px;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:4px;cursor:pointer}
+button:hover{background:var(--amber);border-color:var(--amber);color:#1b2733}
+.hero{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.lamp{width:22px;height:22px;border-radius:50%;background:var(--mid);box-shadow:0 0 0 5px color-mix(in srgb,var(--mid) 25%,transparent);transition:background .25s}
+.big{font:800 64px/1 Archivo,sans-serif}
+.verdict{font-weight:600}
+.factors{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.f{border:1px solid var(--line);border-radius:4px;padding:10px;background:var(--bg)}
+.f b{display:block;font:700 22px Archivo,sans-serif}
+.f span{font-size:14px;color:var(--mute)}
+.f.weak{border-color:var(--bad);border-width:2px}
+.wf{margin-top:6px}
+.row{margin-bottom:14px}
+.row .lab{display:flex;justify-content:space-between;gap:8px;font-size:15px;font-weight:600}
+.track{height:22px;background:var(--bg);border:1px solid var(--line);border-radius:3px;margin-top:4px;overflow:hidden}
+.fill{height:100%;background:var(--bar);transition:width .35s}
+.row .loss{font-size:14px;color:var(--bad);min-height:20px}
+.msg{padding:12px 14px;border-left:6px solid var(--bad);background:var(--bg);margin-top:12px;display:none}
+.insight{margin-top:26px;border-left:6px solid var(--amber)}
+.insight p{margin:6px 0 0}
+.learn details{border-top:1px solid var(--line);padding:10px 0}
+.learn summary{cursor:pointer;font:700 17px Archivo,sans-serif}
+.learn p{margin:8px 0 0;color:var(--mute)}
+footer{margin-top:30px;color:var(--mute);font-size:14px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<h1>Calculadora OEE</h1>
+<p class="lead">Mide qué porcentaje del tiempo de tu máquina se convierte en producto bueno, y descubre en cuál de tres pérdidas se te va más.</p>
+<div class="formula">OEE = Disponibilidad × Rendimiento × Calidad</div>
+
+<div class="grid">
+<section class="panel" aria-labelledby="t1">
+<h2 id="t1">Datos de tu turno</h2>
+<div class="field"><label for="plan">Tiempo planificado (min)</label><small>Cuánto debía producir la máquina, sin contar descansos programados.</small><input id="plan" type="number" min="1" inputmode="decimal"></div>
+<div class="field"><label for="down">Tiempo de paros (min)</label><small>Fallas, cambios de modelo, esperas de material, ajustes.</small><input id="down" type="number" min="0" inputmode="decimal"></div>
+<div class="field"><label for="cyc">Tiempo de ciclo ideal (seg/pieza)</label><small>Lo más rápido que la máquina produce una pieza en condiciones normales.</small><input id="cyc" type="number" min="0.1" step="0.1" inputmode="decimal"></div>
+<div class="field"><label for="tot">Piezas producidas (total)</label><small>Buenas y malas.</small><input id="tot" type="number" min="0" inputmode="decimal"></div>
+<div class="field"><label for="bad">Piezas defectuosas</label><small>Scrap y retrabajo.</small><input id="bad" type="number" min="0" inputmode="decimal"></div>
+<button id="reset" type="button">Cargar ejemplo</button>
+<div class="msg" id="msg" role="alert"></div>
+</section>
+
+<section class="panel" aria-labelledby="t2" aria-live="polite">
+<h2 id="t2">Resultado</h2>
+<div class="hero"><div class="lamp" id="lamp"></div><div class="big" id="oee">--</div><div class="verdict" id="verdict"></div></div>
+<div class="factors">
+<div class="f" id="fa"><b id="va">--</b><span>Disponibilidad</span></div>
+<div class="f" id="fp"><b id="vp">--</b><span>Rendimiento</span></div>
+<div class="f" id="fq"><b id="vq">--</b><span>Calidad</span></div>
+</div>
+<h2 style="margin-top:22px">¿Cuánto tiempo llega a ser valioso?</h2>
+<div class="wf">
+<div class="row"><div class="lab"><span>Tiempo planificado</span><span id="m0"></span></div><div class="track"><div class="fill" id="b0"></div></div><div class="loss"></div></div>
+<div class="row"><div class="lab"><span>Tiempo operando</span><span id="m1"></span></div><div class="track"><div class="fill" id="b1"></div></div><div class="loss" id="l1"></div></div>
+<div class="row"><div class="lab"><span>Tiempo a velocidad ideal</span><span id="m2"></span></div><div class="track"><div class="fill" id="b2"></div></div><div class="loss" id="l2"></div></div>
+<div class="row"><div class="lab"><span>Tiempo que produjo piezas buenas</span><span id="m3"></span></div><div class="track"><div class="fill" id="b3"></div></div><div class="loss" id="l3"></div></div>
+</div>
+</section>
+</div>
+
+<section class="panel insight" aria-live="polite">
+<h2 id="ti">Dónde enfocarte primero</h2>
+<p id="tip"></p>
+</section>
+
+<section class="panel learn" style="margin-top:20px">
+<h2>Qué mide cada factor</h2>
+<details><summary>Disponibilidad</summary><p>Tiempo operando ÷ tiempo planificado. Captura las pérdidas por paros: fallas de equipo y cambios de modelo o ajustes.</p></details>
+<details><summary>Rendimiento</summary><p>(Tiempo de ciclo ideal × piezas) ÷ tiempo operando. Captura las pérdidas por velocidad: microparos y marcha lenta. Si te da más de 100%, revisa que tu ciclo ideal sea realista.</p></details>
+<details><summary>Calidad</summary><p>Piezas buenas ÷ piezas totales. Captura las pérdidas por defectos: scrap y retrabajo, incluyendo las piezas malas del arranque.</p></details>
+<details><summary>¿Y qué es un buen OEE?</summary><p>Como referencia común en la industria, 85% o más se considera clase mundial, y muchas plantas operan entre 60% y 75%. Compárate primero contigo mismo semana a semana.</p></details>
+</section>
+<footer>Material educativo propio. Prototipo de aprendizaje de Lean.</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const ids=['plan','down','cyc','tot','bad'];
+const ex={plan:480,down:47,cyc:1.0,tot:19271,bad:423};
+const pct=x=>(x*100).toFixed(1)+'%';
+const mm=x=>x.toFixed(0)+' min';
+function load(){ids.forEach(i=>$(i).value=ex[i]);calc()}
+function calc(){
+  const P=+$('plan').value,D=+$('down').value,C=+$('cyc').value,T=+$('tot').value,B=+$('bad').value;
+  const msg=$('msg');let err='';
+  if(!(P>0))err='El tiempo planificado debe ser mayor que 0.';
+  else if(D<0||D>P)err='Los paros no pueden ser mayores al tiempo planificado.';
+  else if(!(C>0))err='Escribe un tiempo de ciclo ideal mayor que 0.';
+  else if(T<0||B<0||B>T)err='Las piezas defectuosas no pueden superar el total producido.';
+  else if(P-D===0)err='No hubo tiempo operando; revisa los paros.';
+  if(err){msg.textContent=err;msg.style.display='block';return}
+  msg.style.display='none';
+  const run=P-D,A=run/P,ideal=C*T/60,Pf=ideal/run,Q=T>0?(T-B)/T:0,O=A*Pf*Q;
+  const good=C*(T-B)/60;
+  $('oee').textContent=pct(O);$('va').textContent=pct(A);$('vp').textContent=pct(Pf);$('vq').textContent=pct(Q);
+  const lamp=$('lamp');let c='var(--bad)',v='Hay mucho por recuperar';
+  if(O>=.85){c='var(--ok)';v='Nivel clase mundial'}else if(O>=.6){c='var(--mid)';v='Aceptable, con margen de mejora'}
+  lamp.style.background=c;lamp.style.boxShadow='0 0 0 5px color-mix(in srgb,'+c+' 25%,transparent)';$('verdict').textContent=v;
+  const vals=[P,run,Math.min(ideal,P),Math.min(good,P)];
+  vals.forEach((x,i)=>{$('b'+i).style.width=(x/P*100)+'%'});
+  $('m0').textContent=mm(P);$('m1').textContent=mm(run);$('m2').textContent=mm(ideal);$('m3').textContent=mm(good);
+  $('l1').textContent='Pérdida por paros: '+mm(D);
+  $('l2').textContent=ideal>run?'Tu ciclo ideal parece demasiado lento: produjiste más rápido que el "ideal".':'Pérdida por velocidad: '+mm(run-ideal);
+  $('l3').textContent='Pérdida por defectos: '+mm(ideal-good);
+  const f=[['fa',A],['fp',Pf],['fq',Q]];
+  const w=f.reduce((a,b)=>b[1]<a[1]?b:a);
+  f.forEach(x=>$(x[0]).classList.toggle('weak',x[0]===w[0]&&O<.85));
+  const tips={fa:'Tu factor más bajo es la disponibilidad. Empieza por los paros: registra cada uno, clasifícalos (falla, cambio de modelo, falta de material) y aplica un Pareto. Si los cambios de modelo pesan mucho, SMED es tu herramienta.',
+  fp:'Tu factor más bajo es el rendimiento. La máquina corre, pero más lento de lo ideal o con microparos. Observa el proceso en vivo, cuenta los microparos y revisa si la velocidad está limitada por una condición que ya se puede corregir.',
+  fq:'Tu factor más bajo es la calidad. Estás gastando tiempo en piezas que no sirven. Clasifica los defectos con un Pareto y busca causas raíz con 5 porqués o diagrama de Ishikawa.'};
+  $('tip').textContent=O>=.85?'Estás en nivel alto. El siguiente paso es sostenerlo: estandariza lo que funciona y vigila que no se degrade.':tips[w[0]];
+}
+ids.forEach(i=>$(i).addEventListener('input',calc));
+$('reset').addEventListener('click',load);
+load();
+</script>
+</body>
+</html>
