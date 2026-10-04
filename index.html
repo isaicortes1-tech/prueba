@@ -8,7 +8,22 @@
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
-<div id="site-nav"></div>
+<div id="site-nav" hidden></div>
+
+<header class="gnav">
+  <div class="gnav-in">
+    <a class="brand" href="index.html">Industria Clara</a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#productos">Tienda</a>
+      <a href="csr.html">CSR</a>
+      <a href="iatf.html">IATF</a>
+      <a href="vda.html">VDA</a>
+      <a href="metodologias.html">Metodologias</a>
+      <a href="lean.html">Lean manufacturing</a>
+      <a href="libros.html">Libros</a>
+    </nav>
+  </div>
+</header>
 
 <main>
   <section class="hero hero--video">
@@ -87,13 +102,11 @@
 
 <div id="site-footer"></div>
 <script src="site.js"></script>
-  <script>
-  const videoFondo = document.querySelector(".hero__video");
-
-  if (videoFondo) {
-    videoFondo.defaultPlaybackRate = 0.5;
-    videoFondo.playbackRate = 0.5;
-  }
+<script>
+  document.querySelectorAll('video.hero__video').forEach(function (video) {
+    video.defaultPlaybackRate = 0.5;
+    video.playbackRate = 0.5;
+  });
 </script>
 </body>
 </html>
