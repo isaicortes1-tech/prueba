@@ -3,19 +3,14 @@
    ===================================================== */
 
 /* Nombre de trabajo del proyecto (cámbialo cuando elijas el definitivo) */
-const SITE = { nombre: "I N T R O" };
+const SITE = { nombre: "Industria Clara" };
 
 /* MENÚ SUPERIOR: { t: "Texto", h: "archivo.html" } */
 const MENU = [
-  { t: "Tienda", h:  }
-  { t: "CSR", h:  }
-  { t: "IATF 16949", h:  }
-  { t: "VDA 6.3",   h:  }
-  { t: "Lean Manufacturing", h:  }
   { t: "Nosotros",  h: "index.html#nosotros" },
   { t: "Aprende",   h: "index.html#aprende" },
   { t: "Historia",  h: "index.html#historia" },
-  
+  { t: "Productos", h: "index.html#productos" }
 ];
 
 /* PRODUCTOS: [etiqueta, título, descripción, archivo]
