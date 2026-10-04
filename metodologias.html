@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Metodologías · Industria Clara</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<div id="site-nav"></div>
+
+<header class="phero">
+  <p class="eyebrow">Producto 4</p>
+  <h1>Metodologías.</h1>
+  <p class="tag">8D, APQP y cómo elegir el método correcto para cada situación.</p>
+  <nav class="anc" aria-label="Secciones"><a href="#intro">Introducción</a><a href="#aplicar">Cómo aplicarlo</a><a href="#casos">Casos interactivos</a></nav>
+</header>
+
+<main>
+<section class="blk" id="intro"><div class="in">
+  <h2>Introducción</h2>
+  <p>Una metodología es una forma ordenada y repetible de resolver un problema o planear un producto. En el sector automotriz se usan mucho dos: el <b>8D</b>, para resolver problemas (por ejemplo, cuando un cliente reclama), y el <b>APQP</b>, para planear el lanzamiento de productos nuevos. Para mejorar procesos con datos se usa <b>DMAIC</b>, y para probar ideas rápido, <b>PDCA</b>.</p>
+  <h3>8D en una frase</h3>
+  <p>Ocho disciplinas que van de formar un equipo y contener el problema a encontrar la causa raíz, corregirla de forma permanente y evitar que se repita.</p>
+  <h3>APQP en una frase</h3>
+  <p>Cinco fases para llevar un producto desde la definición del programa hasta la retroalimentación en producción: planear y definir, diseñar el producto, diseñar el proceso, validar y evaluar.</p>
+  <div class="note"><span class="tagv">Verificar</span>El 8D tiene variantes (algunas empresas añaden una D0 de respuesta de emergencia) y el APQP tiene ediciones vigentes que debes confirmar con tu cliente o con el manual oficial.</div>
+</div></section>
+
+<section class="blk alt" id="aplicar"><div class="in">
+  <h2>Cómo aplicarlo: elige el método</h2>
+  <ol class="steps">
+    <li><div><b>Hay un reclamo o una falla concreta.</b> Usa 8D: contén, busca la causa raíz y previene la repetición.</div></li>
+    <li><div><b>Vas a lanzar un producto o un cambio mayor.</b> Usa APQP: planea riesgos, controles y validación antes de producir en serie.</div></li>
+    <li><div><b>Quieres mejorar un proceso con datos.</b> Usa DMAIC: define, mide, analiza, mejora y controla.</div></li>
+    <li><div><b>Quieres probar una idea pequeña rápido.</b> Usa PDCA: planea, haz, verifica y actúa.</div></li>
+  </ol>
+  <div class="note">Los métodos se combinan: un 8D bien hecho termina actualizando el FMEA y el plan de control del APQP.</div>
+</div></section>
+
+<section class="blk" id="casos"><div class="in">
+  <h2>Casos interactivos</h2>
+  <div class="cal">Los casos son ilustrativos: se construyeron con situaciones típicas de la industria y no corresponden a clientes ni empresas reales.</div>
+
+  <div class="lab">
+    <h3>Caso 1: ordena un 8D</h3>
+    <p>Un cliente reportó bombas con fuga. Ubica cada acción en su disciplina.</p>
+    <div class="chips" id="e"></div>
+    <p style="margin-top:14px"><button id="ebtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="eres" aria-live="polite"></p>
+  </div>
+
+  <div class="lab">
+    <h3>Caso 2: ubica cada actividad en su fase de APQP</h3>
+    <div class="chips" id="f"></div>
+    <p style="margin-top:14px"><button id="fbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="fres" aria-live="polite"></p>
+  </div>
+
+  <div class="lab">
+    <h3>Caso 3: ¿qué metodología aplicas?</h3>
+    <div id="d"></div>
+  </div>
+</div></section>
+</main>
+
+<div id="site-footer"></div>
+<script src="site.js"></script>
+<script src="learn.js"></script>
+<script>
+cls('e',[
+ ["Formar un equipo multidisciplinario con calidad, producción y mantenimiento",0],
+ ["Describir el problema con qué, dónde, cuándo y cuánto",1],
+ ["Separar las piezas sospechosas y proteger al cliente mientras se investiga",2],
+ ["Encontrar la causa raíz y por qué el defecto llegó al cliente",3],
+ ["Elegir y verificar la acción correctiva permanente",4],
+ ["Implementar la acción y validar que funciona",5],
+ ["Actualizar el FMEA y el plan de control para evitar que se repita",6],
+ ["Cerrar el caso y reconocer al equipo",7]],
+ ["D1 Equipo","D2 Problema","D3 Contención","D4 Causa raíz","D5 Elegir acción","D6 Implementar","D7 Prevenir recurrencia","D8 Cierre"],
+ 'Sigue el orden: equipo, problema, contención, causa, acción, implementación, prevención, cierre.');
+
+cls('f',[
+ ["Definir los requisitos del cliente y los objetivos de calidad del programa",0],
+ ["Verificar el diseño del producto con revisiones y análisis de riesgos de diseño",1],
+ ["Desarrollar el diagrama de flujo, el FMEA de proceso y el plan de control preliminar",2],
+ ["Hacer una corrida de producción de prueba y preparar la aprobación del cliente",3],
+ ["Analizar la variación en producción y registrar lecciones aprendidas",4]],
+ ["1 Planear y definir","2 Diseño y desarrollo del producto","3 Diseño y desarrollo del proceso","4 Validación de producto y proceso","5 Retroalimentación y acción correctiva"],
+ 'Piensa en el avance: definir, diseñar producto, diseñar proceso, validar y retroalimentar.');
+
+quiz('d',[
+ ["Un cliente devolvió un lote por rayones. Quieres contener, hallar la causa y evitar que se repita. ¿Qué usas?",["8D","APQP","PDCA solamente"],0,"El 8D está pensado para resolver un problema concreto con contención y prevención."],
+ ["Van a lanzar una pieza nueva para un cliente. ¿Qué metodología estructura el lanzamiento?",["8D","APQP","Solo un Pareto"],1,"El APQP planea riesgos, controles y validación antes de producir en serie."],
+ ["Quieres reducir de forma sostenida el rechazo de una línea, apoyándote en datos. ¿Qué encaja mejor?",["DMAIC","Un reclamo de cliente","Solo una auditoría"],0,"DMAIC es el marco para mejorar procesos con datos: definir, medir, analizar, mejorar y controlar."],
+ ["Tienes una idea para cambiar la posición de una herramienta y quieres probarla una semana. ¿Qué ciclo usas?",["PDCA","APQP completo","8D"],0,"PDCA sirve para probar cambios pequeños, verificar y decidir si se adopta."]
+]);
+</script>
+</body>
+</html>

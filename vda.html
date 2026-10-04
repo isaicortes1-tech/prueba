@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VDA · Industria Clara</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<div id="site-nav"></div>
+
+<header class="phero">
+  <p class="eyebrow">Producto 3</p>
+  <h1>VDA.</h1>
+  <p class="tag">Auditorías de proceso y de producto, explicadas con práctica.</p>
+  <nav class="anc" aria-label="Secciones"><a href="#intro">Introducción</a><a href="#aplicar">Cómo aplicarlo</a><a href="#casos">Casos interactivos</a></nav>
+</header>
+
+<main>
+<section class="blk" id="intro"><div class="in">
+  <h2>Introducción</h2>
+  <p>El <b>VDA</b> (Verband der Automobilindustrie) es la asociación alemana de la industria automotriz. Publica volúmenes de gestión de la calidad que usan muchos fabricantes europeos y sus proveedores para evaluar y mejorar la calidad.</p>
+  <h3>Los documentos que más aparecen</h3>
+  <p><b>VDA 6.3</b> es la auditoría de proceso. <b>VDA 6.5</b> es la auditoría de producto. <b>VDA 6.1</b> es la auditoría del sistema de gestión de calidad. Además, el VDA participa con AIAG en el manual armonizado de FMEA.</p>
+  <h3>VDA 6.3 en pocas palabras</h3>
+  <p>Evalúa si los procesos están planificados, controlados y son capaces de dar un resultado conforme. Está organizada en siete elementos de proceso, de P1 a P7, desde el análisis de potencial y la gestión del proyecto hasta la producción en serie y la atención al cliente. La edición vigente es la VDA 6.3:2023.</p>
+  <div class="note"><span class="tagv">Verificar</span>Las reglas de calificación detalladas, las preguntas con asterisco y las reglas de degradación dependen de la edición oficial y de los requisitos de cada cliente. Usa el documento oficial para una auditoría real.</div>
+</div></section>
+
+<section class="blk alt" id="aplicar"><div class="in">
+  <h2>Cómo aplicarlo</h2>
+  <ol class="steps">
+    <li><div><b>Define el proceso a auditar.</b> Entradas, salidas, recursos, responsables e indicadores (el diagrama de tortuga ayuda).</div></li>
+    <li><div><b>Reúne evidencia objetiva.</b> Documentos, registros, datos de producción y lo que se observa en el piso.</div></li>
+    <li><div><b>Califica cada pregunta.</b> Cada una se evalúa de 10 (cumple) a 0 (no cumple), según la evidencia.</div></li>
+    <li><div><b>Calcula el porcentaje y la clasificación.</b> A, B o C, considerando las reglas de degradación.</div></li>
+    <li><div><b>Cierra los hallazgos.</b> Plan de acción con responsable y fecha, y verificación de eficacia.</div></li>
+  </ol>
+  <div class="note">Regla práctica: audita lo que pasa en el piso, no solo el procedimiento escrito.</div>
+</div></section>
+
+<section class="blk" id="casos"><div class="in">
+  <h2>Casos interactivos</h2>
+  <div class="cal">Los casos son ilustrativos: se construyeron con situaciones típicas de la industria y no corresponden a clientes ni empresas reales. Las preguntas son ejemplos, no el catálogo oficial.</div>
+
+  <div class="lab">
+    <h3>Caso 1: ubica cada pregunta en su elemento P1 a P7</h3>
+    <div class="chips" id="p"></div>
+    <p style="margin-top:14px"><button id="pbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="pres" aria-live="polite"></p>
+    <div class="note"><span class="tagv">Verificar</span>Los nombres de los elementos pueden variar un poco entre ediciones e idiomas.</div>
+  </div>
+
+  <div class="lab">
+    <h3>Caso 2: califica una auditoría de proceso</h3>
+    <p>Línea de ensamble de bombas, auditoría de proceso de producción. Califica cada pregunta de ejemplo y observa el resultado.</p>
+    <div class="scroll"><table><thead><tr><th>Pregunta de ejemplo</th><th>Puntos</th></tr></thead><tbody id="v"></tbody></table></div>
+    <div class="stats"><span>Resultado <span class="big" id="vp">--</span></span><span>Clasificación <span class="big" id="vg">--</span></span></div>
+    <div class="note" id="vm" aria-live="polite"></div>
+    <div class="note"><span class="tagv">Verificar</span>Aquí A es 90% o más, B de 80% a menos de 90% y C menos de 80%. Las reglas de degradación (por ejemplo, un elemento bajo o una pregunta con cero) pueden bajar la clasificación aunque el porcentaje sea alto.</div>
+  </div>
+
+  <div class="lab">
+    <h3>Caso 3: decide con el problema delante</h3>
+    <div id="d"></div>
+  </div>
+</div></section>
+</main>
+
+<div id="site-footer"></div>
+<script src="site.js"></script>
+<script src="learn.js"></script>
+<script>
+cls('p',[
+ ["¿Se evaluó si la organización tiene la capacidad para realizar el proyecto?",0],
+ ["¿Hay responsables, plan de proyecto y seguimiento de hitos?",1],
+ ["¿Se planifica el desarrollo del producto y del proceso?",2],
+ ["¿Se evalúa a los proveedores y se gestiona su desempeño?",4],
+ ["¿Las instrucciones de trabajo y los controles están disponibles en el puesto?",5],
+ ["¿Se atienden las quejas del cliente y se analizan sus causas?",6]],
+ ["P1 Análisis de potencial","P2 Gestión del proyecto","P3 Planificación de producto y proceso","P4 Realización de producto y proceso","P5 Gestión de proveedores","P6 Producción en serie","P7 Atención al cliente y servicio"],
+ 'Piensa en la etapa del ciclo de vida que describe la pregunta.');
+
+const V=[["Las instrucciones de trabajo están en el puesto y vigentes",10],["Los dispositivos de medición están calibrados",8],["Los operadores conocen las características críticas",10],["Los defectos se registran y se analizan sus causas",6],["Los materiales no conformes están identificados y separados",8],["Hay un plan de reacción conocido ante una desviación",10],["Los cambios de proceso se aprueban y se registran",4],["Se mantiene la trazabilidad por lote",8]];
+$('v').innerHTML=V.map((q,i)=>`<tr><td>${q[0]}</td><td><select id="vs${i}" aria-label="${q[0]}">${[10,8,6,4,0].map(p=>`<option value="${p}"${p===q[1]?' selected':''}>${p}</option>`).join('')}</select></td></tr>`).join('');
+function vc(){const s=V.map((_,i)=>+$('vs'+i).value),t=s.reduce((a,b)=>a+b,0),p=t/(V.length*10)*100,z=s.includes(0),g=p>=90?'A':p>=80?'B':'C';
+ $('vp').textContent=p.toFixed(0)+'%';const e=$('vg');e.textContent=g;e.className='big g'+g;
+ $('vm').textContent=(z?'Hay una pregunta en cero: según las reglas de degradación, la clasificación podría bajar aunque el porcentaje sea alto. ':'')+(g==='A'?'Proceso capaz, siempre que no apliquen reglas de degradación.':g==='B'?`Condicionalmente capaz. Para llegar al 90% faltan ${Math.ceil(0.9*V.length*10-t)} puntos: empieza por las preguntas con menor calificación.`:'No capaz. Hace falta un plan de acción inmediato, empezando por las preguntas más bajas.')}
+$('v').addEventListener('change',vc);vc();
+
+quiz('d',[
+ ["Quieres evaluar si el producto terminado cumple lo especificado, midiéndolo en la salida. ¿Qué auditoría encaja?",["VDA 6.3 (proceso)","VDA 6.5 (producto)","Solo una inspección de proveedores"],1,"La 6.5 audita el producto; la 6.3 audita el proceso que lo fabrica."],
+ ["Un proceso obtiene 91%, pero una pregunta clave quedó en cero. ¿Qué esperas?",["Clasificación A garantizada","Que el resultado pueda degradarse por las reglas de la edición aplicable","Que se ignore el cero"],1,"El porcentaje no es lo único: las reglas de degradación consideran los ceros y los elementos débiles."],
+ ["¿Qué evidencia vale más en una auditoría de proceso?",["Solo el procedimiento escrito","Lo observado en el piso, apoyado en registros y datos","Las declaraciones del gerente"],1,"La auditoría de proceso verifica que lo escrito se cumple en la práctica."]
+]);
+</script>
+</body>
+</html>

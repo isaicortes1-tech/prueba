@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IATF 16949 · Industria Clara</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<div id="site-nav"></div>
+
+<header class="phero">
+  <p class="eyebrow">Producto 2</p>
+  <h1>IATF 16949.</h1>
+  <p class="tag">La norma de calidad automotriz, explicada para aplicarla.</p>
+  <nav class="anc" aria-label="Secciones"><a href="#intro">Introducción</a><a href="#aplicar">Cómo aplicarlo</a><a href="#casos">Casos interactivos</a></nav>
+</header>
+
+<main>
+<section class="blk" id="intro"><div class="in">
+  <h2>Introducción</h2>
+  <p><b>IATF 16949</b> es la norma de sistemas de gestión de la calidad para la industria automotriz, desarrollada por el International Automotive Task Force. No es un documento aislado: se implementa junto con ISO 9001 y añade requisitos específicos del sector, con énfasis en la prevención de defectos y la reducción de la variación.</p>
+  <h3>Lo que añade a ISO 9001</h3>
+  <p>Seguridad del producto, trazabilidad, gestión de proveedores, control de cambios, los requisitos específicos del cliente (CSR) y el uso de las cinco herramientas núcleo.</p>
+  <h3>Las cinco herramientas núcleo</h3>
+  <p><b>APQP</b> (planificación avanzada de la calidad del producto), <b>PPAP</b> (proceso de aprobación de piezas de producción), <b>FMEA</b> (análisis de modo y efecto de fallas), <b>MSA</b> (análisis del sistema de medición) y <b>SPC</b> (control estadístico del proceso). Están conectadas: el APQP da el marco, el FMEA identifica riesgos, el plan de control se deriva de él, el MSA valida las mediciones, el SPC vigila la serie y el PPAP documenta el resultado.</p>
+  <div class="note"><span class="tagv">Verificar</span>La edición vigente de la norma y de cada manual de herramientas puede cambiar. Confirma siempre la versión que exige tu cliente o tu organismo de certificación.</div>
+</div></section>
+
+<section class="blk alt" id="aplicar"><div class="in">
+  <h2>Cómo aplicarlo</h2>
+  <ol class="steps">
+    <li><div><b>Conoce la norma y tus CSR.</b> Reúne la norma, ISO 9001 y los requisitos específicos de tus clientes.</div></li>
+    <li><div><b>Mapea tus procesos.</b> Define procesos, entradas, salidas, responsables e indicadores.</div></li>
+    <li><div><b>Haz un análisis de brechas.</b> Compara lo que haces con lo que pide cada capítulo y cada herramienta núcleo.</div></li>
+    <li><div><b>Implementa y conecta las herramientas.</b> FMEA y plan de control actualizados, estudios MSA y control estadístico donde aplique.</div></li>
+    <li><div><b>Audita internamente.</b> Revisa el sistema, los procesos y el producto, y cierra hallazgos con acciones correctivas.</div></li>
+    <li><div><b>Prepara la auditoría de certificación.</b> Mantén evidencia ordenada y entrena a quien será auditado.</div></li>
+  </ol>
+  <div class="note">Error común: dejar el FMEA y el plan de control sin actualizar después de un cambio de proceso.</div>
+</div></section>
+
+<section class="blk" id="casos"><div class="in">
+  <h2>Casos interactivos</h2>
+  <div class="cal">Los casos son ilustrativos: se construyeron con situaciones típicas de la industria y no corresponden a empresas reales.</div>
+
+  <div class="lab">
+    <h3>Caso 1: ubica cada actividad en su capítulo</h3>
+    <p>La norma sigue la estructura de ISO 9001 (capítulos 4 a 10). Relaciona cada actividad de una planta con su capítulo.</p>
+    <div class="chips" id="c"></div>
+    <p style="margin-top:14px"><button id="cbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="cres" aria-live="polite"></p>
+  </div>
+
+  <div class="lab">
+    <h3>Caso 2: ¿para qué sirve cada herramienta núcleo?</h3>
+    <div class="chips" id="t"></div>
+    <p style="margin-top:14px"><button id="tbtn" type="button">Revisar mis respuestas</button></p><p class="fb" id="tres" aria-live="polite"></p>
+  </div>
+
+  <div class="lab">
+    <h3>Caso 3: decide con el problema delante</h3>
+    <div id="d"></div>
+  </div>
+</div></section>
+</main>
+
+<div id="site-footer"></div>
+<script src="site.js"></script>
+<script src="learn.js"></script>
+<script>
+cls('c',[
+ ["Entender las partes interesadas y definir el alcance del sistema",0],
+ ["Definir la política de calidad y asignar responsabilidades",1],
+ ["Gestionar los riesgos y oportunidades y fijar objetivos de calidad",2],
+ ["Controlar la calibración de los equipos de medición y la competencia del personal",3],
+ ["Planificar el lanzamiento de un producto nuevo y controlar la producción",4],
+ ["Realizar auditorías internas y revisar el desempeño",5],
+ ["Abrir acciones correctivas y mejorar de forma continua",6]],
+ ["4 Contexto","5 Liderazgo","6 Planificación","7 Apoyo","8 Operación","9 Evaluación del desempeño","10 Mejora"],
+ 'Recuerda que la estructura es la de ISO 9001: contexto, liderazgo, planificación, apoyo, operación, evaluación y mejora.');
+
+cls('t',[
+ ["Planificar el lanzamiento de un producto para que llegue sin fallas de calidad",0],
+ ["Entregar al cliente la evidencia de que el proceso es capaz antes de producir en serie",1],
+ ["Anticipar fallas posibles y priorizar los riesgos",2],
+ ["Comprobar que el sistema de medición es confiable",3],
+ ["Vigilar con datos si el proceso se desvía durante la producción",4]],
+ ["APQP","PPAP","FMEA","MSA","SPC"],
+ 'Piensa si es planear, aprobar, anticipar, validar la medición o vigilar la producción.');
+
+quiz('d',[
+ ["Las mediciones de torque varían mucho según el operador. ¿Qué revisas primero?",["Cambiar a los operadores","El sistema de medición (MSA, por ejemplo un estudio de repetibilidad y reproducibilidad)","El plan de marketing"],1,"Si el sistema de medición no es confiable, no sabes si la variación viene del proceso o del instrumento."],
+ ["El cliente quiere comprobar que tu proceso de serie es capaz antes de aprobar embarques. ¿Qué preparas?",["Un paquete de aprobación de piezas (PPAP) con la evidencia que pide el cliente","Una presentación comercial","El manual de calidad de hace cinco años"],0,"El PPAP documenta que el proceso cumple los requisitos del cliente antes de producir en serie."],
+ ["Cambiaste el método de ensamble. ¿Qué documentos debes revisar?",["Ninguno, el método es lo único que cambió","FMEA y plan de control, y confirmar si el cliente exige notificación","Solo la etiqueta del producto"],1,"Un cambio de proceso puede cambiar los riesgos y los controles; mantener esos documentos al día es un requisito frecuente en auditoría."]
+]);
+</script>
+</body>
+</html>
