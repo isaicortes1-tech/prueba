@@ -7,7 +7,7 @@
 const SITE = {
   nombre: "I N T R O",
   logo: "logo.png",          // pon tu logo en la misma carpeta con este nombre
-  contacto: { email: "", whatsapp: "" }   // opcional: se usa en los botones sin enlace de compra
+  contacto: { email: "isai.cortes1@outlook.com", whatsapp: "8611159263" }   // opcional: se usa en los botones sin enlace de compra
 };
 
 /* ---------- CATEGORÍAS DE LA TIENDA ---------- */
