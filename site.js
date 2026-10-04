@@ -7,11 +7,11 @@ const SITE = { nombre: "I N T R O" };
 
 /* MENÚ SUPERIOR: { t: "Texto", h: "archivo.html" } */
 const MENU = [
-  { t: "Tienda", h: "index.html#productos" }
-  { t: "CSR", h: "index.html#productos" }
-  { t: "IATF 16949", h: "index.html#productos" }
-  { t: "VDA 6.3", h: "index.html#productos" }
-  { t: "Lean Manufacturing", h: "index.html#productos" }
+  { t: "Tienda", h:  }
+  { t: "CSR", h:  }
+  { t: "IATF 16949", h:  }
+  { t: "VDA 6.3",   h:  }
+  { t: "Lean Manufacturing", h:  }
   { t: "Nosotros",  h: "index.html#nosotros" },
   { t: "Aprende",   h: "index.html#aprende" },
   { t: "Historia",  h: "index.html#historia" },
