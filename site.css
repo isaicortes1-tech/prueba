@@ -100,3 +100,14 @@ th{font-size:13px;color:var(--mute);font-weight:600}
 .foot a{display:block;color:var(--mute);margin:5px 0}.foot a:hover{color:var(--ink)}
 .foot p{max-width:1024px;margin:0 auto;border-top:1px solid var(--line);padding-top:14px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.cd{transition:none}.cd:hover{transform:none}}
+
+.hero--video{position:relative;isolation:isolate;overflow:hidden;background:#101114}
+.hero--video .hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
+.hero--video:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.62),rgba(0,0,0,.7));pointer-events:none}
+.hero--video .hero__contenido{position:relative;z-index:2}
+.hero--video .eyebrow,.hero--video h1,.hero--video .tag{color:#fff}
+.hero--video .links a{color:#c5e3ff}
+.hero--video .links a:focus-visible{outline-color:#fff}
+.hero--video .pills span{background:rgba(0,0,0,.64);color:#fff}
+@media(prefers-reduced-motion:reduce){.hero--video .hero__video{display:none}}
+
